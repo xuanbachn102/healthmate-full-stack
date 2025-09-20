@@ -1,0 +1,39 @@
+---
+description: "Security rules and guardrails across the stack"
+globs: ["**/*"]
+---
+
+Secrets & Config
+- Never commit keys, tokens, or credentials. Use environment variables.
+- Mask secrets in logs and errors. Avoid console.log of sensitive data.
+
+AuthZ/AuthN
+- Enforce role checks using `authAdmin`, `authDoctor`, `authUser` where applicable.
+- Verify JWTs on every protected route; rotate/expire appropriately.
+
+Input Validation
+- Validate and sanitize all inputs (body, params, query, headers).
+- Enforce server-side schema validation before DB writes.
+
+Uploads
+- Restrict file types and sizes in `multer` config. Scan or reject executables.
+- Store only trusted URLs/paths; never execute uploaded content.
+
+HTTP & Cookies
+- Use HTTPS in production; set Secure, HttpOnly, SameSite cookies.
+- Set security headers (CORS, CSP where relevant).
+
+Database Safety
+- Use parameterized queries via Mongoose. Avoid $where and untrusted operators.
+- Limit projections to required fields; never return password hashes or tokens.
+
+Rate Limiting & Abuse
+- Rate limit sensitive endpoints (login, OTP, payments).
+- Add basic request logging with IP and user id where legal.
+
+Error Handling
+- Return generic error messages; do not leak internals.
+
+Front-End Safety
+- Escape and sanitize user-generated content before rendering.
+- Avoid dangerouslySetInnerHTML unless sanitized.

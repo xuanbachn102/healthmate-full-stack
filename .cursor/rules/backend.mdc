@@ -1,0 +1,37 @@
+---
+description: "Backend rules for Node.js + Express + MongoDB in backend/"
+globs: ["backend/**/*"]
+---
+
+Stack
+- Node.js, Express, MongoDB (Mongoose), Multer, Cloudinary, JWT auth, Razorpay/Stripe logos present on FE.
+
+Architecture
+- Keep controllers thin; push business logic into helpers/services if they grow.
+- Validate req.body/params/query for every route.
+- Reuse middlewares in `middleware/` for auth and uploads.
+
+Standards
+- Use async/await with proper try/catch. Return consistent JSON: { success, data?, error? }.
+- Never expose stack traces in responses.
+- Use environment variables via process.env; do not hardcode secrets.
+
+Database
+- Use Mongoose models in `models/`. Validate schemas and indexes.
+- Avoid unbounded queries; paginate lists.
+
+Auth
+- Use existing `authUser`, `authDoctor`, `authAdmin` middlewares for protected routes.
+- Store tokens in HTTP-only cookies or Authorization headers; verify on each request.
+
+Uploads
+- Use `middleware/multer.js` and `config/cloudinary.js` flow; validate file type/size.
+
+Errors
+- Centralize error handling; map known errors to 4xx, unknown to 500.
+
+Performance
+- Add appropriate indexes; avoid N+1 patterns; project fields.
+
+Edit Rules
+- Do not introduce new frameworks. Keep style consistent with current files.

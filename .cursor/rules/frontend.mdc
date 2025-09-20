@@ -1,0 +1,42 @@
+---
+description: "Frontend rules for React + Vite + Tailwind in admin/ and frontend/"
+globs: ["admin/**/*", "frontend/**/*"]
+---
+
+Stack
+- React with Vite, React Router, TailwindCSS.
+
+UI/UX Conventions
+- Keep components small and focused; colocate state near usage.
+- Use controlled inputs; debounce expensive handlers.
+- Use semantic HTML and accessible attributes (aria-*, alt, roles).
+- Prefer responsive, mobile‑first CSS with Tailwind utility classes.
+
+State & Data
+- Central app state lives in existing context files under `context/`.
+- Do not introduce Redux or other state libs.
+- For async calls, use axios already present; handle loading and error states.
+
+Components & Patterns
+- Use function components and hooks only.
+- Extract reusable UI into `components/`.
+- Memoize with React.memo/useMemo/useCallback when props or computations are stable.
+
+Routing
+- Use React Router as configured; avoid nested routes churn unless required.
+
+Assets
+- Place images/icons in `src/assets/` and reference via imports.
+
+Performance
+- Avoid passing new inline functions or objects to deep children without memoization.
+- Lazy-load heavy routes or components when sensible.
+
+Error Handling
+- Show user-friendly toasts/messages on failures; avoid silent failures.
+
+Testing
+- Prefer simple unit coverage for utilities; keep components deterministic.
+
+Edit Rules
+- Do not reformat entire files; make minimal, targeted edits.
