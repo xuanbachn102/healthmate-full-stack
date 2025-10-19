@@ -87,9 +87,9 @@ const Login = () => {
 
   return (
     <form onSubmit={onSubmitHandler} className='min-h-[80vh] flex items-center'>
-      <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'>
-        <p className='text-2xl font-semibold dark:text-gray-200'>{state === 'Sign Up' ? t('login.createAccount') : t('login.login')}</p>
-        <p className='dark:text-gray-300'>{state === 'Sign Up' ? t('login.pleaseSignUp') : t('login.pleaseLogin')}</p>
+      <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
+        <p className='text-2xl font-semibold dark:text-white'>{state === 'Sign Up' ? t('login.createAccount') : t('login.login')}</p>
+        <p className='dark:text-gray-200'>{state === 'Sign Up' ? t('login.pleaseSignUp') : t('login.pleaseLogin')}</p>
 
         {/* Google Login Button */}
         <div className='w-full'>
@@ -111,23 +111,23 @@ const Login = () => {
 
         {state === 'Sign Up'
           ? <div className='w-full '>
-            <p className='dark:text-gray-300'>{t('login.fullName')}</p>
+            <p className='dark:text-gray-200'>{t('login.fullName')}</p>
             <input onChange={(e) => setName(e.target.value)} value={name} className='border border-[#DADADA] rounded w-full p-2 mt-1 dark:bg-gray-700 dark:text-white dark:border-gray-600' type="text" required />
           </div>
           : null
         }
         <div className='w-full '>
-          <p className='dark:text-gray-300'>{t('login.email')}</p>
+          <p className='dark:text-gray-200'>{t('login.email')}</p>
           <input onChange={(e) => setEmail(e.target.value)} value={email} className='border border-[#DADADA] rounded w-full p-2 mt-1 dark:bg-gray-700 dark:text-white dark:border-gray-600' type="email" required />
         </div>
         <div className='w-full '>
-          <p className='dark:text-gray-300'>{t('login.password')}</p>
+          <p className='dark:text-gray-200'>{t('login.password')}</p>
           <input onChange={(e) => setPassword(e.target.value)} value={password} className='border border-[#DADADA] rounded w-full p-2 mt-1 dark:bg-gray-700 dark:text-white dark:border-gray-600' type="password" required />
         </div>
         <button className='bg-primary text-white w-full py-2 my-2 rounded-md text-base'>{state === 'Sign Up' ? t('login.createAccountBtn') : t('login.loginBtn')}</button>
         {state === 'Sign Up'
-          ? <p className='dark:text-gray-300'>{t('login.alreadyHaveAccount')} <span onClick={() => setState('Login')} className='text-primary underline cursor-pointer'>{t('login.loginHere')}</span></p>
-          : <p className='dark:text-gray-300'>{t('login.createNewAccount')} <span onClick={() => setState('Sign Up')} className='text-primary underline cursor-pointer'>{t('login.clickHere')}</span></p>
+          ? <p className='dark:text-gray-200'>{t('login.alreadyHaveAccount')} <span onClick={() => setState('Login')} className='text-primary underline cursor-pointer'>{t('login.loginHere')}</span></p>
+          : <p className='dark:text-gray-200'>{t('login.createNewAccount')} <span onClick={() => setState('Sign Up')} className='text-primary underline cursor-pointer'>{t('login.clickHere')}</span></p>
         }
       </div>
     </form>
