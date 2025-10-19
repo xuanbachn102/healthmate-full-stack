@@ -147,10 +147,34 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 - Payment confirmations
 - System announcements
 
-### 3. Google Login Integration (Pending)
-- OAuth 2.0 authentication
-- One-click sign up/login
-- Profile sync from Google account
+### 3. Google Login Integration ✅ COMPLETED
+OAuth 2.0 authentication cho đăng nhập nhanh:
+
+**Features:**
+- One-click sign up/login với Google account
+- Auto-create user từ Google profile
+- Link existing accounts by email
+- Profile picture từ Google
+- Không cần password cho Google users
+
+**Implementation:**
+- Frontend: @react-oauth/google package
+- GoogleOAuthProvider wrapper trong main.jsx
+- GoogleLogin button trong Login page với divider "OR"
+- JWT decode để extract user info (email, name, sub, picture)
+- Backend: googleLogin controller trong userController.js
+- User model có googleId field (unique, sparse)
+- Route: POST /api/user/google-login
+
+**Setup Required:**
+- Google Cloud Console project
+- Enable Google+ API
+- Create OAuth 2.0 credentials
+- Add authorized origins: http://localhost:5173
+- Set VITE_GOOGLE_CLIENT_ID trong frontend/.env
+
+**Branch**: feature/google-login
+**Status**: Ready for testing (cần Google Client ID)
 
 ### 4. Multilanguage Support (Pending)
 - English (EN)

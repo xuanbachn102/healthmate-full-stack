@@ -84,6 +84,48 @@ const loginUser = async (req, res) => {
     }
 }
 
+// API to handle Google OAuth login
+const googleLogin = async (req, res) => {
+    try {
+        const { email, name, googleId, image } = req.body;
+
+        if (!email || !name || !googleId) {
+            return res.json({ success: false, message: 'Missing Google account details' })
+        }
+
+        // Check if user already exists
+        let user = await userModel.findOne({ email })
+
+        if (user) {
+            // User exists, update Google ID if not set
+            if (!user.googleId) {
+                user.googleId = googleId
+                await user.save()
+            }
+        } else {
+            // Create new user with Google account
+            const userData = {
+                name,
+                email,
+                googleId,
+                image: image || user?.image,
+                password: await bcrypt.hash(googleId + process.env.JWT_SECRET, 10) // Random password for Google users
+            }
+
+            user = new userModel(userData)
+            await user.save()
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        res.json({ success: true, token })
+
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
 // API to get user profile data
 const getProfile = async (req, res) => {
 
@@ -363,6 +405,7 @@ const verifyStripe = async (req, res) => {
 export {
     loginUser,
     registerUser,
+    googleLogin,
     getProfile,
     updateProfile,
     bookAppointment,
