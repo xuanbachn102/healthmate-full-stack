@@ -12,12 +12,12 @@ const Footer = () => {
 
         <div>
           {/*<img className='mb-5 w-40' src={assets.logo} alt="" />*/}
-          <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <p className='w-full md:w-2/3 text-gray-600 dark:text-gray-400 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
         </div>
 
         <div>
-          <p className='text-xl font-medium mb-5'>{t('footer.company')}</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
+          <p className='text-xl font-medium mb-5 dark:text-gray-200'>{t('footer.company')}</p>
+          <ul className='flex flex-col gap-2 text-gray-600 dark:text-gray-400'>
             <li>{t('footer.home')}</li>
             <li>{t('footer.aboutUs')}</li>
             <li>{t('footer.delivery')}</li>
@@ -26,8 +26,8 @@ const Footer = () => {
         </div>
 
         <div>
-          <p className='text-xl font-medium mb-5'>{t('footer.getInTouch')}</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
+          <p className='text-xl font-medium mb-5 dark:text-gray-200'>{t('footer.getInTouch')}</p>
+          <ul className='flex flex-col gap-2 text-gray-600 dark:text-gray-400'>
             <li>0337714282</li>
             <li>xuanbachggl@gmail.com</li>
           </ul>
@@ -36,8 +36,8 @@ const Footer = () => {
       </div>
 
       <div>
-        <hr />
-        <p className='py-5 text-sm text-center'>{t('footer.copyright', { year: currentYear })}</p>
+        <hr className='dark:border-gray-700' />
+        <p className='py-5 text-sm text-center dark:text-gray-400'>{t('footer.copyright', { year: currentYear })}</p>
       </div>
 
     </div>
