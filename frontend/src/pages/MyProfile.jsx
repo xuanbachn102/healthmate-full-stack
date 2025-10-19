@@ -25,6 +25,14 @@ const MyProfile = () => {
             formData.append('gender', userData.gender)
             formData.append('dob', userData.dob)
 
+            // Add health information
+            formData.append('bloodType', userData.bloodType || 'Not Specified')
+            formData.append('symptoms', JSON.stringify(userData.symptoms || []))
+            formData.append('diseases', JSON.stringify(userData.diseases || []))
+            formData.append('allergies', JSON.stringify(userData.allergies || []))
+            formData.append('medications', JSON.stringify(userData.medications || []))
+            formData.append('emergencyContact', JSON.stringify(userData.emergencyContact || { name: '', phone: '', relationship: '' }))
+
             image && formData.append('image', image)
 
             const { data } = await axios.post(backendUrl + '/api/user/update-profile', formData, { headers: { token } })
@@ -113,6 +121,85 @@ const MyProfile = () => {
 
                 </div>
             </div>
+
+            <div>
+                <p className='text-[#797979] underline mt-3'>HEALTH INFORMATION</p>
+                <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-gray-600'>
+                    <p className='font-medium'>Blood Type:</p>
+
+                    {isEdit
+                        ? <select className='max-w-32 bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, bloodType: e.target.value }))} value={userData.bloodType || 'Not Specified'} >
+                            <option value="Not Specified">Not Specified</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        : <p className='text-gray-500'>{userData.bloodType || 'Not Specified'}</p>
+                    }
+
+                    <p className='font-medium'>Symptoms:</p>
+
+                    {isEdit
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter symptoms separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, symptoms: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.symptoms?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.symptoms?.join(', ') || 'None'}</p>
+                    }
+
+                    <p className='font-medium'>Diseases:</p>
+
+                    {isEdit
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter diseases separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, diseases: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.diseases?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.diseases?.join(', ') || 'None'}</p>
+                    }
+
+                    <p className='font-medium'>Allergies:</p>
+
+                    {isEdit
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter allergies separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, allergies: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.allergies?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.allergies?.join(', ') || 'None'}</p>
+                    }
+
+                    <p className='font-medium'>Medications:</p>
+
+                    {isEdit
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter medications separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, medications: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.medications?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.medications?.join(', ') || 'None'}</p>
+                    }
+
+                </div>
+            </div>
+
+            <div>
+                <p className='text-[#797979] underline mt-3'>EMERGENCY CONTACT</p>
+                <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-gray-600'>
+                    <p className='font-medium'>Name:</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Emergency contact name" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, name: e.target.value } }))} value={userData.emergencyContact?.name || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.name || 'Not Set'}</p>
+                    }
+
+                    <p className='font-medium'>Phone:</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Emergency contact phone" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, phone: e.target.value } }))} value={userData.emergencyContact?.phone || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.phone || 'Not Set'}</p>
+                    }
+
+                    <p className='font-medium'>Relationship:</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Relationship" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, relationship: e.target.value } }))} value={userData.emergencyContact?.relationship || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.relationship || 'Not Set'}</p>
+                    }
+
+                </div>
+            </div>
+
             <div className='mt-10'>
 
                 {isEdit

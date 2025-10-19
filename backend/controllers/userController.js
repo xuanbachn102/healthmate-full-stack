@@ -104,14 +104,31 @@ const updateProfile = async (req, res) => {
 
     try {
 
-        const { userId, name, phone, address, dob, gender } = req.body
+        const { userId, name, phone, address, dob, gender, bloodType, symptoms, diseases, allergies, medications, emergencyContact } = req.body
         const imageFile = req.file
 
         if (!name || !phone || !dob || !gender) {
             return res.json({ success: false, message: "Data Missing" })
         }
 
-        await userModel.findByIdAndUpdate(userId, { name, phone, address: JSON.parse(address), dob, gender })
+        // Prepare update data
+        const updateData = {
+            name,
+            phone,
+            address: JSON.parse(address),
+            dob,
+            gender
+        }
+
+        // Add health information if provided
+        if (bloodType) updateData.bloodType = bloodType
+        if (symptoms) updateData.symptoms = JSON.parse(symptoms)
+        if (diseases) updateData.diseases = JSON.parse(diseases)
+        if (allergies) updateData.allergies = JSON.parse(allergies)
+        if (medications) updateData.medications = JSON.parse(medications)
+        if (emergencyContact) updateData.emergencyContact = JSON.parse(emergencyContact)
+
+        await userModel.findByIdAndUpdate(userId, updateData)
 
         if (imageFile) {
 

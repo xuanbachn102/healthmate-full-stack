@@ -9,6 +9,13 @@ const userSchema = new mongoose.Schema({
     gender: { type: String, default: 'Not Selected' },
     dob: { type: String, default: 'Not Selected' },
     password: { type: String, required: true },
+    // Health Information Fields
+    bloodType: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Not Specified'], default: 'Not Specified' },
+    symptoms: { type: [String], default: [] },
+    diseases: { type: [String], default: [] },
+    allergies: { type: [String], default: [] },
+    medications: { type: [String], default: [] },
+    emergencyContact: { type: Object, default: { name: '', phone: '', relationship: '' } },
 })
 
 const userModel = mongoose.models.user || mongoose.model("user", userSchema);
