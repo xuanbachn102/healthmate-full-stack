@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     gender: { type: String, default: 'Not Selected' },
     dob: { type: String, default: 'Not Selected' },
     password: { type: String, required: true },
+    // Google OAuth
+    googleId: { type: String, unique: true, sparse: true },
     // Health Information Fields
     bloodType: { type: String, enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Not Specified'], default: 'Not Specified' },
     symptoms: { type: [String], default: [] },

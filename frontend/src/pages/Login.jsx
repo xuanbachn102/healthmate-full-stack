@@ -3,6 +3,8 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 const Login = () => {
 
@@ -44,6 +46,37 @@ const Login = () => {
 
   }
 
+  // Handle Google Login Success
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const decoded = jwtDecode(credentialResponse.credential)
+
+      const googleData = {
+        email: decoded.email,
+        name: decoded.name,
+        googleId: decoded.sub,
+        image: decoded.picture
+      }
+
+      const { data } = await axios.post(backendUrl + '/api/user/google-login', googleData)
+
+      if (data.success) {
+        localStorage.setItem('token', data.token)
+        setToken(data.token)
+        toast.success('Logged in with Google successfully!')
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      console.error('Google login error:', error)
+      toast.error('Google login failed')
+    }
+  }
+
+  const handleGoogleError = () => {
+    toast.error('Google login failed')
+  }
+
   useEffect(() => {
     if (token) {
       navigate('/')
@@ -55,6 +88,24 @@ const Login = () => {
       <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg'>
         <p className='text-2xl font-semibold'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</p>
         <p>Please {state === 'Sign Up' ? 'sign up' : 'log in'} to book appointment</p>
+
+        {/* Google Login Button */}
+        <div className='w-full'>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap
+            theme="outline"
+            size="large"
+            width="100%"
+          />
+        </div>
+
+        <div className='w-full flex items-center gap-2'>
+          <hr className='flex-1 border-gray-300' />
+          <span className='text-gray-500 text-xs'>OR</span>
+          <hr className='flex-1 border-gray-300' />
+        </div>
         {state === 'Sign Up'
           ? <div className='w-full '>
             <p>Full Name</p>

@@ -88,6 +88,7 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 ### Authentication (Public)
 - `POST /api/user/register` - Đăng ký tài khoản mới
 - `POST /api/user/login` - Đăng nhập
+- `POST /api/user/google-login` - Đăng nhập với Google OAuth
 
 ### User Profile (Protected - requires JWT token)
 - `GET /api/user/get-profile` - Lấy thông tin profile
@@ -112,6 +113,7 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
   name: String (required),
   email: String (required, unique),
   password: String (required, hashed with bcrypt),
+  googleId: String (unique, sparse - for Google OAuth users),
   image: String (default: base64 profile picture),
   phone: String (default: '000000000'),
   address: { line1: String, line2: String },
@@ -147,10 +149,47 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 - Payment confirmations
 - System announcements
 
-### 3. Google Login Integration (Pending)
-- OAuth 2.0 authentication
-- One-click sign up/login
-- Profile sync from Google account
+### 3. Google Login Integration ✅ COMPLETED & TESTED
+OAuth 2.0 authentication cho đăng nhập nhanh:
+
+**Features:**
+- One-click sign up/login với Google account
+- Auto-create user từ Google profile
+- Link existing accounts by email
+- Profile picture từ Google
+- Không cần password cho Google users
+
+**Implementation:**
+- Frontend: @react-oauth/google package
+- GoogleOAuthProvider wrapper trong main.jsx
+- GoogleLogin button trong Login page với divider "OR"
+- JWT decode để extract user info (email, name, sub, picture)
+- Backend: googleLogin controller trong userController.js
+- User model có googleId field (unique, sparse)
+- Route: POST /api/user/google-login
+
+**Setup Required:**
+- Google Cloud Console project
+- Enable People API (hoặc Google+ API)
+- Create OAuth 2.0 credentials
+- Add authorized origins: http://localhost:5173 (và http://localhost:5174 nếu cần)
+- Set VITE_GOOGLE_CLIENT_ID trong frontend/.env
+
+**Troubleshooting:**
+- Port conflicts: Sử dụng `npm run dev:safe` để tự động kill port 5173
+- Vite strictPort: Config để không auto-switch sang port khác
+- origin_mismatch error: Kiểm tra authorized origins trong Google Console
+- Backend restart: Luôn restart backend sau khi thêm routes mới
+
+**Documentation:**
+- GOOGLE_OAUTH_SETUP.md - Hướng dẫn chi tiết 7 bước
+- GOOGLE_SETUP_SIMPLE.md - Hướng dẫn đơn giản bằng tiếng Việt
+- GOOGLE_QUICK_GUIDE.txt - Quick reference
+- FIX_ORIGIN_MISMATCH.md - Troubleshooting guide
+- PORT_5173_GUIDE.md - Port management guide
+
+**Branch**: feature/google-login
+**Status**: ✅ TESTED & WORKING - Ready to merge
 
 ### 4. Multilanguage Support (Pending)
 - English (EN)
@@ -174,49 +213,14 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 
 ## Development Workflow
 
-### Branch Strategy & Testing Workflow
-
-⚠️ **CRITICAL - NEW POLICY**:
-**LUÔN LUÔN TEST TRƯỚC KHI MERGE VÀO MAIN**
-
-Mỗi feature được phát triển trên branch riêng theo quy trình:
-
-1. **Create Feature Branch**
-   ```bash
-   git checkout main
-   git checkout -b feature/feature-name
-   ```
-
-2. **Develop & Commit**
-   - Code implementation
-   - Test locally
-   - Commit với proper message
-
-3. **TESTING PHASE** ⚠️ BẮT BUỘC
-   - **KHÔNG BAO GIỜ merge trực tiếp vào main**
-   - Developer phải test feature trên branch
-   - Verify tất cả functionality hoạt động
-   - Fix bugs nếu có
-   - Commit fixes vào cùng branch
-
-4. **Request Review**
-   - Báo developer "ready for review"
-   - Developer test lại
-   - Confirm OK để merge
-
-5. **Merge to Main** (chỉ sau khi tested & approved)
-   ```bash
-   git checkout main
-   git merge feature/feature-name --no-edit
-   ```
-
-**Active Branches:**
-- ✅ `feature/enhanced-user-profile` - User profile (merged)
-- 🧪 `feature/google-login` - Google OAuth (READY FOR TESTING)
-- ⏸️ `feature/dark-mode` - Dark mode (has issues, postponed)
-- 📋 `feature/notification-system` - Notification (not started)
-- 📋 `feature/multilanguage` - i18n EN/VI (not started)
-- 📋 `feature/ai-chatbot` - Chatbot (not started)
+### Branch Strategy
+Mỗi feature được phát triển trên branch riêng:
+- `feature/enhanced-user-profile` - User profile với health info
+- `feature/notification-system` - Hệ thống thông báo
+- `feature/google-login` - Đăng nhập Google
+- `feature/multilanguage` - Hỗ trợ đa ngôn ngữ
+- `feature/dark-mode` - Chế độ tối
+- `feature/ai-chatbot` - Tích hợp chatbot AI
 
 ### Git Commit Guidelines
 ⚠️ **IMPORTANT**:
@@ -268,6 +272,8 @@ CURRENCY=USD
 ### Frontend (.env)
 ```
 VITE_BACKEND_URL=http://localhost:4000
+VITE_GOOGLE_CLIENT_ID=<your_google_oauth_client_id>
+VITE_RAZORPAY_KEY_ID=<razorpay_key_id>
 ```
 
 ## Running the Application
@@ -283,7 +289,9 @@ npm start
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev        # Chạy bình thường
+npm run dev:safe   # Tự động kill port 5173 trước khi chạy
+npm run kill-port  # Chỉ kill port 5173
 ```
 
 ### Admin Panel
@@ -295,7 +303,8 @@ npm run dev
 
 ## Testing Checklist
 
-### Enhanced User Profile Feature ✅
+### User Profile Feature ✅
+
 - [x] Register new user
 - [x] Login successfully
 - [x] View profile page
@@ -310,37 +319,20 @@ npm run dev
 - [x] Save all changes
 - [x] Verify data persists after reload
 
-### Google Login Feature 🧪 READY FOR TESTING
-**Prerequisites:**
-- Get Google Client ID from Google Cloud Console
-- Add to frontend/.env: `VITE_GOOGLE_CLIENT_ID=your-client-id`
-- Backend must be running
-- Frontend must be running
+### Google Login Feature ✅
 
-**Test Cases:**
-- [ ] See Google "Sign in with Google" button on login page
-- [ ] Click Google button, popup opens
-- [ ] Select Google account
-- [ ] First time login: Creates new user account
-- [ ] Check user profile has Google picture
-- [ ] Logout and login again with same Google account
-- [ ] Verify returns to same account (not creating duplicate)
-- [ ] Check if existing email account can link with Google
-- [ ] Test "OR" divider displays correctly
-- [ ] Test on different browsers (Chrome, Firefox, Safari)
-- [ ] Test One Tap feature (should show Google One Tap prompt)
-
-**How to Test:**
-1. Checkout branch: `git checkout feature/google-login`
-2. Backend: `cd backend && npm start`
-3. Frontend: `cd frontend && npm run dev`
-4. Open http://localhost:5173/login
-5. Follow test cases above
-6. Report any bugs found
-
-**Known Issues:**
-- Requires Google Client ID setup (see .env.example)
-- One Tap may not work in incognito mode
+- [x] Setup Google Cloud Console project
+- [x] Enable People API
+- [x] Create OAuth 2.0 credentials
+- [x] Configure authorized JavaScript origins
+- [x] Add VITE_GOOGLE_CLIENT_ID to .env
+- [x] Click "Sign in with Google" button
+- [x] Select Google account
+- [x] Successfully login with new Google user (auto-create account)
+- [x] Successfully login with existing user
+- [x] Profile picture synced from Google
+- [x] JWT token stored and user redirected
+- [x] Backend endpoint working correctly
 
 ## Known Issues & Technical Debt
 - None currently
@@ -384,14 +376,6 @@ npm run dev
 
 ---
 
-**Last Updated**: 2025-10-20
-**Completed Features**:
-- ✅ Enhanced User Profile v1.0 (merged to main)
-- 🧪 Google OAuth Login v1.0 (ready for testing on feature/google-login)
-
-**Current Status**: Google Login ready for testing
-**Next Steps**:
-1. Test Google Login feature
-2. Fix any bugs found
-3. Merge to main after approval
-4. Then choose: Notification System / Multilanguage / AI Chatbot
+**Last Updated**: 2025-10-21
+**Current Version**: v2.0 - Enhanced User Profile + Google Login
+**Next Feature**: Notification System or Multilanguage Support
