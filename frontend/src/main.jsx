@@ -5,6 +5,7 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import AppContextProvider from './context/AppContext.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import './i18n/i18n.js'
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
 

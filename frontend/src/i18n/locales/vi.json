@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "TRANG CHỦ",
+    "allDoctors": "DANH SÁCH BÁC SĨ",
+    "about": "GIỚI THIỆU",
+    "contact": "LIÊN HỆ",
+    "myProfile": "Hồ Sơ Của Tôi",
+    "myAppointments": "Lịch Hẹn Của Tôi",
+    "logout": "Đăng Xuất",
+    "createAccount": "Tạo tài khoản"
+  },
+  "header": {
+    "title": "Đặt Lịch Hẹn Với Bác Sĩ Uy Tín",
+    "subtitle": "Dễ dàng tìm kiếm bác sĩ uy tín và đặt lịch hẹn nhanh chóng, tiện lợi.",
+    "bookAppointment": "Đặt lịch hẹn"
+  },
+  "banner": {
+    "bookAppointment": "Đặt Lịch Hẹn",
+    "withTrustedDoctors": "Với Bác Sĩ Uy Tín",
+    "createAccount": "Tạo tài khoản"
+  },
+  "speciality": {
+    "title": "Tìm Theo Chuyên Khoa",
+    "subtitle": "Dễ dàng tìm kiếm bác sĩ uy tín và đặt lịch hẹn nhanh chóng, tiện lợi.",
+    "generalPhysician": "Bác sĩ đa khoa",
+    "gynecologist": "Phụ khoa",
+    "dermatologist": "Da liễu",
+    "pediatricians": "Nhi khoa",
+    "neurologist": "Thần kinh",
+    "gastroenterologist": "Tiêu hóa"
+  },
+  "topDoctors": {
+    "title": "Bác Sĩ Hàng Đầu",
+    "subtitle": "Dễ dàng tìm kiếm và đặt lịch với các bác sĩ uy tín.",
+    "available": "Có lịch",
+    "notAvailable": "Hết lịch",
+    "more": "thêm"
+  },
+  "relatedDoctors": {
+    "title": "Bác Sĩ Liên Quan",
+    "subtitle": "Dễ dàng tìm kiếm và đặt lịch với các bác sĩ uy tín.",
+    "available": "Có lịch",
+    "notAvailable": "Hết lịch"
+  },
+  "doctors": {
+    "title": "Duyệt qua danh sách bác sĩ chuyên khoa.",
+    "filters": "Bộ lọc",
+    "available": "Có lịch",
+    "notAvailable": "Hết lịch"
+  },
+  "appointment": {
+    "bookingSlots": "Các khung giờ khám",
+    "bookAppointment": "Đặt lịch hẹn",
+    "about": "Giới thiệu",
+    "appointmentFee": "Phí khám:",
+    "loginToBook": "Đăng nhập để đặt lịch hẹn",
+    "sun": "CN",
+    "mon": "T2",
+    "tue": "T3",
+    "wed": "T4",
+    "thu": "T5",
+    "fri": "T6",
+    "sat": "T7"
+  },
+  "myAppointments": {
+    "title": "Lịch hẹn của tôi",
+    "address": "Địa chỉ:",
+    "dateTime": "Ngày & Giờ:",
+    "payOnline": "Thanh Toán Online",
+    "paid": "Đã Thanh Toán",
+    "completed": "Hoàn Thành",
+    "cancelled": "Đã Hủy",
+    "cancelAppointment": "Hủy lịch hẹn",
+    "appointmentCancelled": "Đã hủy lịch hẹn",
+    "paymentDescription": "Thanh Toán Lịch Hẹn"
+  },
+  "login": {
+    "signUp": "Đăng Ký",
+    "login": "Đăng Nhập",
+    "createAccount": "Tạo Tài Khoản",
+    "pleaseSignUp": "Vui lòng đăng ký để đặt lịch hẹn",
+    "pleaseLogin": "Vui lòng đăng nhập để đặt lịch hẹn",
+    "fullName": "Họ và Tên",
+    "email": "Email",
+    "password": "Mật Khẩu",
+    "createAccountBtn": "Tạo tài khoản",
+    "loginBtn": "Đăng nhập",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "loginHere": "Đăng nhập tại đây",
+    "createNewAccount": "Tạo tài khoản mới?",
+    "clickHere": "Nhấn vào đây",
+    "googleLoginSuccess": "Đăng nhập Google thành công!",
+    "googleLoginFailed": "Đăng nhập Google thất bại",
+    "or": "HOẶC"
+  },
+  "myProfile": {
+    "contactInfo": "THÔNG TIN LIÊN HỆ",
+    "basicInfo": "THÔNG TIN CƠ BẢN",
+    "healthInfo": "THÔNG TIN SỨC KHỎE",
+    "emergencyContact": "LIÊN HỆ KHẨN CẤP",
+    "emailId": "Email:",
+    "phone": "Số điện thoại:",
+    "address": "Địa chỉ:",
+    "gender": "Giới tính:",
+    "birthday": "Ngày sinh:",
+    "bloodType": "Nhóm máu:",
+    "symptoms": "Triệu chứng:",
+    "diseases": "Bệnh lý:",
+    "allergies": "Dị ứng:",
+    "medications": "Thuốc đang dùng:",
+    "emergencyName": "Tên người liên hệ khẩn cấp:",
+    "emergencyPhone": "Số điện thoại khẩn cấp:",
+    "emergencyRelationship": "Mối quan hệ:",
+    "saveInfo": "Lưu thông tin",
+    "edit": "Chỉnh sửa",
+    "male": "Nam",
+    "female": "Nữ",
+    "notSelected": "Chưa chọn",
+    "notSpecified": "Chưa xác định",
+    "notSet": "Chưa thiết lập",
+    "addressLine1": "Địa chỉ dòng 1",
+    "addressLine2": "Địa chỉ dòng 2",
+    "symptomsPlaceholder": "Nhập triệu chứng, cách nhau bởi dấu phẩy",
+    "diseasesPlaceholder": "Nhập bệnh lý, cách nhau bởi dấu phẩy",
+    "allergiesPlaceholder": "Nhập dị ứng, cách nhau bởi dấu phẩy",
+    "medicationsPlaceholder": "Nhập thuốc đang dùng, cách nhau bởi dấu phẩy",
+    "namePlaceholder": "Họ tên",
+    "phonePlaceholder": "Số điện thoại",
+    "relationshipPlaceholder": "vd: Vợ/Chồng, Cha/Mẹ, Anh/Chị/Em"
+  },
+  "about": {
+    "title": "GIỚI THIỆU",
+    "whyChooseUs": "TẠI SAO CHỌN CHÚNG TÔI",
+    "welcome": "Chào mừng đến với HealthMate, đối tác đáng tin cậy của bạn trong việc quản lý nhu cầu chăm sóc sức khỏe một cách tiện lợi và hiệu quả. Tại HealthMate, chúng tôi hiểu những thách thức mà mọi người gặp phải khi đặt lịch hẹn với bác sĩ và quản lý hồ sơ sức khỏe của mình.",
+    "ourVision": "Tầm Nhìn Của Chúng Tôi",
+    "visionText": "HealthMate cam kết xuất sắc trong công nghệ chăm sóc sức khỏe. Chúng tôi không ngừng cải tiến nền tảng của mình, tích hợp những tiến bộ mới nhất để nâng cao trải nghiệm người dùng và cung cấp dịch vụ vượt trội. Dù bạn đang đặt lịch hẹn đầu tiên hay quản lý chăm sóc liên tục, HealthMate luôn ở đây để hỗ trợ bạn từng bước.",
+    "efficiency": "HIỆU QUẢ:",
+    "efficiencyText": "Lên lịch hẹn được sắp xếp hợp lý phù hợp với lối sống bận rộn của bạn.",
+    "convenience": "TIỆN LỢI:",
+    "convenienceText": "Tiếp cận mạng lưới các chuyên gia chăm sóc sức khỏe đáng tin cậy trong khu vực của bạn.",
+    "personalization": "CÁ NHÂN HÓA:",
+    "personalizationText": "Đề xuất và nhắc nhở được cá nhân hóa để giúp bạn theo dõi sức khỏe của mình."
+  },
+  "contact": {
+    "title": "LIÊN HỆ",
+    "ourOffice": "VĂN PHÒNG CỦA CHÚNG TÔI",
+    "address": "00000 Willms Station Suite 000, Washington, USA",
+    "phone": "Điện thoại: (000) 000-0000",
+    "email": "Email: greatstackdev@gmail.com",
+    "careers": "TUYỂN DỤNG TẠI HEALTHMATE",
+    "careersText": "Tìm hiểu thêm về đội ngũ và cơ hội việc làm của chúng tôi.",
+    "exploreJobs": "Khám Phá Việc Làm"
+  },
+  "footer": {
+    "company": "CÔNG TY",
+    "home": "Trang chủ",
+    "aboutUs": "Giới thiệu",
+    "delivery": "Giao hàng",
+    "privacyPolicy": "Chính sách bảo mật",
+    "getInTouch": "LIÊN HỆ",
+    "copyright": "Bản quyền 2024 @ HealthMate.com - Mọi quyền được bảo lưu."
+  },
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công"
+  }
+}

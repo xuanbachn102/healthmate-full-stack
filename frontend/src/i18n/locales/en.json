@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "HOME",
+    "allDoctors": "ALL DOCTORS",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "myProfile": "My Profile",
+    "myAppointments": "My Appointments",
+    "logout": "Logout",
+    "createAccount": "Create account"
+  },
+  "header": {
+    "title": "Book Appointment With Trusted Doctors",
+    "subtitle": "Simply browse through our extensive list of trusted doctors, schedule your appointment hassle-free.",
+    "bookAppointment": "Book appointment"
+  },
+  "banner": {
+    "bookAppointment": "Book Appointment",
+    "withTrustedDoctors": "With Trusted Doctors",
+    "createAccount": "Create account"
+  },
+  "speciality": {
+    "title": "Find by Speciality",
+    "subtitle": "Simply browse through our extensive list of trusted doctors, schedule your appointment hassle-free.",
+    "generalPhysician": "General physician",
+    "gynecologist": "Gynecologist",
+    "dermatologist": "Dermatologist",
+    "pediatricians": "Pediatricians",
+    "neurologist": "Neurologist",
+    "gastroenterologist": "Gastroenterologist"
+  },
+  "topDoctors": {
+    "title": "Top Doctors to Book",
+    "subtitle": "Simply browse through our extensive list of trusted doctors.",
+    "available": "Available",
+    "notAvailable": "Not Available",
+    "more": "more"
+  },
+  "relatedDoctors": {
+    "title": "Related Doctors",
+    "subtitle": "Simply browse through our extensive list of trusted doctors.",
+    "available": "Available",
+    "notAvailable": "Not Available"
+  },
+  "doctors": {
+    "title": "Browse through the doctors specialist.",
+    "filters": "Filters",
+    "available": "Available",
+    "notAvailable": "Not Available"
+  },
+  "appointment": {
+    "bookingSlots": "Booking slots",
+    "bookAppointment": "Book an appointment",
+    "about": "About",
+    "appointmentFee": "Appointment fee:",
+    "loginToBook": "Login to book appointment",
+    "sun": "SUN",
+    "mon": "MON",
+    "tue": "TUE",
+    "wed": "WED",
+    "thu": "THU",
+    "fri": "FRI",
+    "sat": "SAT"
+  },
+  "myAppointments": {
+    "title": "My appointments",
+    "address": "Address:",
+    "dateTime": "Date & Time:",
+    "payOnline": "Pay Online",
+    "paid": "Paid",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "cancelAppointment": "Cancel appointment",
+    "appointmentCancelled": "Appointment cancelled",
+    "paymentDescription": "Appointment Payment"
+  },
+  "login": {
+    "signUp": "Sign Up",
+    "login": "Login",
+    "createAccount": "Create Account",
+    "pleaseSignUp": "Please sign up to book appointment",
+    "pleaseLogin": "Please log in to book appointment",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "createAccountBtn": "Create account",
+    "loginBtn": "Login",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginHere": "Login here",
+    "createNewAccount": "Create a new account?",
+    "clickHere": "Click here",
+    "googleLoginSuccess": "Logged in with Google successfully!",
+    "googleLoginFailed": "Google login failed",
+    "or": "OR"
+  },
+  "myProfile": {
+    "contactInfo": "CONTACT INFORMATION",
+    "basicInfo": "BASIC INFORMATION",
+    "healthInfo": "HEALTH INFORMATION",
+    "emergencyContact": "EMERGENCY CONTACT",
+    "emailId": "Email id:",
+    "phone": "Phone:",
+    "address": "Address:",
+    "gender": "Gender:",
+    "birthday": "Birthday:",
+    "bloodType": "Blood Type:",
+    "symptoms": "Symptoms:",
+    "diseases": "Diseases:",
+    "allergies": "Allergies:",
+    "medications": "Medications:",
+    "emergencyName": "Emergency Contact Name:",
+    "emergencyPhone": "Emergency Contact Phone:",
+    "emergencyRelationship": "Relationship:",
+    "saveInfo": "Save information",
+    "edit": "Edit",
+    "male": "Male",
+    "female": "Female",
+    "notSelected": "Not Selected",
+    "notSpecified": "Not Specified",
+    "notSet": "Not Set",
+    "addressLine1": "Address line 1",
+    "addressLine2": "Address line 2",
+    "symptomsPlaceholder": "Enter symptoms separated by commas",
+    "diseasesPlaceholder": "Enter diseases separated by commas",
+    "allergiesPlaceholder": "Enter allergies separated by commas",
+    "medicationsPlaceholder": "Enter medications separated by commas",
+    "namePlaceholder": "Name",
+    "phonePlaceholder": "Phone number",
+    "relationshipPlaceholder": "e.g., Spouse, Parent, Sibling"
+  },
+  "about": {
+    "title": "ABOUT US",
+    "whyChooseUs": "WHY CHOOSE US",
+    "welcome": "Welcome to HealthMate, your trusted partner in managing your healthcare needs conveniently and efficiently. At HealthMate, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.",
+    "ourVision": "Our Vision",
+    "visionText": "HealthMate is committed to excellence in healthcare technology. We continuously strive to enhance our platform, integrating the latest advancements to improve user experience and deliver superior service. Whether you're booking your first appointment or managing ongoing care, HealthMate is here to support you every step of the way.",
+    "efficiency": "EFFICIENCY:",
+    "efficiencyText": "Streamlined appointment scheduling that fits into your busy lifestyle.",
+    "convenience": "CONVENIENCE:",
+    "convenienceText": "Access to a network of trusted healthcare professionals in your area.",
+    "personalization": "PERSONALIZATION:",
+    "personalizationText": "Tailored recommendations and reminders to help you stay on top of your health."
+  },
+  "contact": {
+    "title": "CONTACT US",
+    "ourOffice": "OUR OFFICE",
+    "address": "00000 Willms Station Suite 000, Washington, USA",
+    "phone": "Tel: (000) 000-0000",
+    "email": "Email: greatstackdev@gmail.com",
+    "careers": "CAREERS AT HEALTHMATE",
+    "careersText": "Learn more about our teams and job openings.",
+    "exploreJobs": "Explore Jobs"
+  },
+  "footer": {
+    "company": "COMPANY",
+    "home": "Home",
+    "aboutUs": "About us",
+    "delivery": "Delivery",
+    "privacyPolicy": "Privacy policy",
+    "getInTouch": "GET IN TOUCH",
+    "copyright": "Copyright 2024 @ HealthMate.com - All Right Reserved."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}

@@ -5,12 +5,14 @@ import { assets } from '../assets/assets'
 import RelatedDoctors from '../components/RelatedDoctors'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 const Appointment = () => {
 
+    const { t } = useTranslation()
     const { docId } = useParams()
     const { doctors, currencySymbol, backendUrl, token, getDoctosData } = useContext(AppContext)
-    const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+    const daysOfWeek = [t('appointment.sun'), t('appointment.mon'), t('appointment.tue'), t('appointment.wed'), t('appointment.thu'), t('appointment.fri'), t('appointment.sat')]
 
     const [docInfo, setDocInfo] = useState(false)
     const [docSlots, setDocSlots] = useState([])
@@ -88,7 +90,7 @@ const Appointment = () => {
     const bookAppointment = async () => {
 
         if (!token) {
-            toast.warning('Login to book appointment')
+            toast.warning(t('appointment.loginToBook'))
             return navigate('/login')
         }
 
@@ -151,17 +153,17 @@ const Appointment = () => {
 
                     {/* ----- Doc About ----- */}
                     <div>
-                        <p className='flex items-center gap-1 text-sm font-medium text-[#262626] mt-3'>About <img className='w-3' src={assets.info_icon} alt="" /></p>
+                        <p className='flex items-center gap-1 text-sm font-medium text-[#262626] mt-3'>{t('appointment.about')} <img className='w-3' src={assets.info_icon} alt="" /></p>
                         <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{docInfo.about}</p>
                     </div>
 
-                    <p className='text-gray-600 font-medium mt-4'>Appointment fee: <span className='text-gray-800'>{currencySymbol}{docInfo.fees}</span> </p>
+                    <p className='text-gray-600 font-medium mt-4'>{t('appointment.appointmentFee')} <span className='text-gray-800'>{currencySymbol}{docInfo.fees}</span> </p>
                 </div>
             </div>
 
             {/* Booking slots */}
             <div className='sm:ml-72 sm:pl-4 mt-8 font-medium text-[#565656]'>
-                <p >Booking slots</p>
+                <p >{t('appointment.bookingSlots')}</p>
                 <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
                     {docSlots.length && docSlots.map((item, index) => (
                         <div onClick={() => setSlotIndex(index)} key={index} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-[#DDDDDD]'}`}>
@@ -177,7 +179,7 @@ const Appointment = () => {
                     ))}
                 </div>
 
-                <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-20 py-3 rounded-full my-6'>Book an appointment</button>
+                <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-20 py-3 rounded-full my-6'>{t('appointment.bookAppointment')}</button>
             </div>
 
             {/* Listing Releated Doctors */}
