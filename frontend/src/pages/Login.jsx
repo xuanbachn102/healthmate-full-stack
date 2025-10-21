@@ -15,12 +15,14 @@ const Login = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
 
   const navigate = useNavigate()
   const { backendUrl, token, setToken } = useContext(AppContext)
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsLoggingIn(true)
 
     if (state === 'Sign Up') {
 
@@ -31,6 +33,7 @@ const Login = () => {
         setToken(data.token)
       } else {
         toast.error(data.message)
+        setIsLoggingIn(false)
       }
 
     } else {
@@ -42,6 +45,7 @@ const Login = () => {
         setToken(data.token)
       } else {
         toast.error(data.message)
+        setIsLoggingIn(false)
       }
 
     }
@@ -51,6 +55,7 @@ const Login = () => {
   // Handle Google Login Success
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
+      setIsLoggingIn(true)
       const decoded = jwtDecode(credentialResponse.credential)
 
       const googleData = {
@@ -68,10 +73,12 @@ const Login = () => {
         toast.success(t('login.googleLoginSuccess'))
       } else {
         toast.error(data.message)
+        setIsLoggingIn(false)
       }
     } catch (error) {
       console.error('Google login error:', error)
       toast.error(t('login.googleLoginFailed'))
+      setIsLoggingIn(false)
     }
   }
 
@@ -79,11 +86,12 @@ const Login = () => {
     toast.error(t('login.googleLoginFailed'))
   }
 
+  // Redirect to home after successful login
   useEffect(() => {
-    if (token) {
+    if (token && isLoggingIn) {
       navigate('/')
     }
-  }, [token])
+  }, [token, isLoggingIn, navigate])
 
   return (
     <form onSubmit={onSubmitHandler} className='min-h-[80vh] flex items-center'>
@@ -96,7 +104,6 @@ const Login = () => {
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={handleGoogleError}
-            useOneTap
             theme="outline"
             size="large"
             width="100%"
