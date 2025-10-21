@@ -243,10 +243,35 @@ OAuth 2.0 authentication cho đăng nhập nhanh:
 **Branch**: feature/multilanguage
 **Status**: ✅ MERGED TO MAIN
 
-### 5. Dark Mode (Pending)
-- Toggle between light/dark themes
-- User preference persistence
-- Tailwind dark mode classes
+### 5. Dark Mode ✅ COMPLETED
+**Features:**
+- Theme toggle button with sun/moon icons in navigation
+- Seamless switching between light and dark themes
+- Theme preference persistence in localStorage (key: healthmate-theme)
+- High contrast text for better readability in dark mode
+- Comprehensive dark mode styling across all pages and components
+
+**Implementation:**
+- Frontend: Tailwind CSS dark mode with class-based strategy
+- ThemeContext for global theme state management
+- ThemeToggle component with icon indicators
+- CSS transitions for smooth theme switching (300ms)
+- Dark mode optimizations:
+  - Headings: dark:text-white
+  - Body text: dark:text-gray-100/gray-200
+  - Cards: dark:bg-gray-800 with dark:border-gray-700
+  - Logo: Inverted colors for visibility
+  - All input fields, textareas, selects optimized for dark theme
+
+**Technical Details:**
+- tailwind.config.js: darkMode: 'class'
+- index.css: Global dark mode background transitions
+- ThemeProvider wraps entire App for theme state
+- useTheme hook for accessing theme across components
+- Compatible with multilanguage feature
+
+**Branch**: feature/dark-mode
+**Status**: ✅ MERGED TO MAIN
 
 ### 6. AI Chatbot Integration (Pending)
 **Potential Use Cases:**
@@ -391,5 +416,5 @@ npm run dev
 ---
 
 **Last Updated**: 2025-10-22
-**Current Version**: v3.0 - Enhanced User Profile + Google Login + Multilanguage Support
-**Next Feature**: Notification System or Dark Mode
+**Current Version**: v4.0 - Enhanced User Profile + Google Login + Multilanguage + Dark Mode
+**Next Feature**: Notification System or AI Chatbot
