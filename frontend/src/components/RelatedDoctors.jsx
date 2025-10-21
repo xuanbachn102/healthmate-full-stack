@@ -19,19 +19,19 @@ const RelatedDoctors = ({ speciality, docId }) => {
     }, [doctors, speciality, docId])
 
     return (
-        <div className='flex flex-col items-center gap-4 my-16 text-[#262626]'>
+        <div className='flex flex-col items-center gap-4 my-16 text-[#262626] dark:text-white'>
             <h1 className='text-3xl font-medium'>{t('relatedDoctors.title')}</h1>
-            <p className='sm:w-1/3 text-center text-sm'>{t('relatedDoctors.subtitle')}</p>
+            <p className='sm:w-1/3 text-center text-sm dark:text-gray-200'>{t('relatedDoctors.subtitle')}</p>
             <div className='w-full grid grid-cols-auto gap-4 pt-5 gap-y-6 px-3 sm:px-0'>
                 {relDoc.map((item, index) => (
-                    <div onClick={() => { navigate(`/appointment/${item._id}`); scrollTo(0, 0) }} className='border border-[#C9D8FF] rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' key={index}>
+                    <div onClick={() => { navigate(`/appointment/${item._id}`); scrollTo(0, 0) }} className='border border-[#C9D8FF] dark:border-gray-700 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' key={index}>
                         <img className='bg-[#EAEFFF]' src={item.image} alt="" />
                         <div className='p-4'>
-                            <div className={`flex items-center gap-2 text-sm text-center ${item.available ? 'text-green-500' : "text-gray-500"}`}>
+                            <div className={`flex items-center gap-2 text-sm text-center ${item.available ? 'text-green-500' : "text-gray-500 dark:text-gray-400"}`}>
                                 <p className={`w-2 h-2 rounded-full ${item.available ? 'bg-green-500' : "bg-gray-500"}`}></p><p>{item.available ? t('relatedDoctors.available') : t('relatedDoctors.notAvailable')}</p>
                             </div>
-                            <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
-                            <p className='text-[#5C5C5C] text-sm'>{item.speciality}</p>
+                            <p className='text-[#262626] dark:text-white text-lg font-medium'>{item.name}</p>
+                            <p className='text-[#5C5C5C] dark:text-gray-300 text-sm'>{item.speciality}</p>
                         </div>
                     </div>
                 ))}

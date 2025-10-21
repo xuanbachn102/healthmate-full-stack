@@ -127,32 +127,32 @@ const MyAppointments = () => {
 
     return (
         <div>
-            <p className='pb-3 mt-12 text-lg font-medium text-gray-600 border-b'>{t('myAppointments.title')}</p>
+            <p className='pb-3 mt-12 text-lg font-medium text-gray-600 dark:text-white border-b dark:border-gray-700'>{t('myAppointments.title')}</p>
             <div className=''>
                 {appointments.map((item, index) => (
-                    <div key={index} className='grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-4 border-b'>
+                    <div key={index} className='grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 py-4 border-b dark:border-gray-700'>
                         <div>
                             <img className='w-36 bg-[#EAEFFF]' src={item.docData.image} alt="" />
                         </div>
-                        <div className='flex-1 text-sm text-[#5E5E5E]'>
-                            <p className='text-[#262626] text-base font-semibold'>{item.docData.name}</p>
+                        <div className='flex-1 text-sm text-[#5E5E5E] dark:text-gray-300'>
+                            <p className='text-[#262626] dark:text-white text-base font-semibold'>{item.docData.name}</p>
                             <p>{item.docData.speciality}</p>
-                            <p className='text-[#464646] font-medium mt-1'>{t('myAppointments.address')}</p>
+                            <p className='text-[#464646] dark:text-gray-200 font-medium mt-1'>{t('myAppointments.address')}</p>
                             <p className=''>{item.docData.address.line1}</p>
                             <p className=''>{item.docData.address.line2}</p>
-                            <p className=' mt-1'><span className='text-sm text-[#3C3C3C] font-medium'>{t('myAppointments.dateTime')}</span> {slotDateFormat(item.slotDate)} |  {item.slotTime}</p>
+                            <p className=' mt-1'><span className='text-sm text-[#3C3C3C] dark:text-gray-200 font-medium'>{t('myAppointments.dateTime')}</span> {slotDateFormat(item.slotDate)} |  {item.slotTime}</p>
                         </div>
                         <div></div>
                         <div className='flex flex-col gap-2 justify-end text-sm text-center'>
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment !== item._id && <button onClick={() => setPayment(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>{t('myAppointments.payOnline')}</button>}
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentStripe(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.stripe_logo} alt="" /></button>}
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentRazorpay(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.razorpay_logo} alt="" /></button>}
-                            {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48 py-2 border rounded text-[#696969]  bg-[#EAEFFF]'>{t('myAppointments.paid')}</button>}
+                            {!item.cancelled && !item.payment && !item.isCompleted && payment !== item._id && <button onClick={() => setPayment(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-primary sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>{t('myAppointments.payOnline')}</button>}
+                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentStripe(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700 sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.stripe_logo} alt="" /></button>}
+                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentRazorpay(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700 sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.razorpay_logo} alt="" /></button>}
+                            {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48 py-2 border dark:border-gray-700 rounded text-[#696969] dark:text-gray-200 bg-[#EAEFFF] dark:bg-gray-700'>{t('myAppointments.paid')}</button>}
 
-                            {item.isCompleted && <button className='sm:min-w-48 py-2 border border-green-500 rounded text-green-500'>{t('myAppointments.completed')}</button>}
+                            {item.isCompleted && <button className='sm:min-w-48 py-2 border border-green-500 dark:border-green-600 rounded text-green-500 dark:text-green-400'>{t('myAppointments.completed')}</button>}
 
-                            {!item.cancelled && !item.isCompleted && <button onClick={() => cancelAppointment(item._id)} className='text-[#696969] sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>{t('myAppointments.cancelAppointment')}</button>}
-                            {item.cancelled && !item.isCompleted && <button className='sm:min-w-48 py-2 border border-red-500 rounded text-red-500'>{t('myAppointments.appointmentCancelled')}</button>}
+                            {!item.cancelled && !item.isCompleted && <button onClick={() => cancelAppointment(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>{t('myAppointments.cancelAppointment')}</button>}
+                            {item.cancelled && !item.isCompleted && <button className='sm:min-w-48 py-2 border border-red-500 dark:border-red-600 rounded text-red-500 dark:text-red-400'>{t('myAppointments.appointmentCancelled')}</button>}
                         </div>
                     </div>
                 ))}
