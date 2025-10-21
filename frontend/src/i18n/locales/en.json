@@ -144,9 +144,9 @@
   "contact": {
     "title": "CONTACT US",
     "ourOffice": "OUR OFFICE",
-    "address": "00000 Willms Station Suite 000, Washington, USA",
+    "address": "123 Nguyen Hue Street, District 1, Ho Chi Minh City, Vietnam",
     "phone": "Tel: (000) 000-0000",
-    "email": "Email: greatstackdev@gmail.com",
+    "email": "Email: xuanbachggl@gmail.com",
     "careers": "CAREERS AT HEALTHMATE",
     "careersText": "Learn more about our teams and job openings.",
     "exploreJobs": "Explore Jobs"
@@ -158,7 +158,7 @@
     "delivery": "Delivery",
     "privacyPolicy": "Privacy policy",
     "getInTouch": "GET IN TOUCH",
-    "copyright": "Copyright 2024 @ HealthMate.com - All Right Reserved."
+    "copyright": "Copyright {{year}} @ HealthMate.com - All Right Reserved."
   },
   "common": {
     "save": "Save",

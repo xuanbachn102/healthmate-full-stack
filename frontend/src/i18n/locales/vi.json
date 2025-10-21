@@ -144,9 +144,9 @@
   "contact": {
     "title": "LIÊN HỆ",
     "ourOffice": "VĂN PHÒNG CỦA CHÚNG TÔI",
-    "address": "00000 Willms Station Suite 000, Washington, USA",
+    "address": "123 Đường Nguyễn Huệ, Quận 1, Thành phố Hồ Chí Minh, Việt Nam",
     "phone": "Điện thoại: (000) 000-0000",
-    "email": "Email: greatstackdev@gmail.com",
+    "email": "Email: xuanbachggl@gmail.com",
     "careers": "TUYỂN DỤNG TẠI HEALTHMATE",
     "careersText": "Tìm hiểu thêm về đội ngũ và cơ hội việc làm của chúng tôi.",
     "exploreJobs": "Khám Phá Việc Làm"
@@ -158,7 +158,7 @@
     "delivery": "Giao hàng",
     "privacyPolicy": "Chính sách bảo mật",
     "getInTouch": "LIÊN HỆ",
-    "copyright": "Bản quyền 2024 @ HealthMate.com - Mọi quyền được bảo lưu."
+    "copyright": "Bản quyền {{year}} @ HealthMate.com - Mọi quyền được bảo lưu."
   },
   "common": {
     "save": "Lưu",
