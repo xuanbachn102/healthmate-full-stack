@@ -88,6 +88,7 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 ### Authentication (Public)
 - `POST /api/user/register` - Đăng ký tài khoản mới
 - `POST /api/user/login` - Đăng nhập
+- `POST /api/user/google-login` - Đăng nhập với Google OAuth
 
 ### User Profile (Protected - requires JWT token)
 - `GET /api/user/get-profile` - Lấy thông tin profile
@@ -112,6 +113,7 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
   name: String (required),
   email: String (required, unique),
   password: String (required, hashed with bcrypt),
+  googleId: String (unique, sparse - for Google OAuth users),
   image: String (default: base64 profile picture),
   phone: String (default: '000000000'),
   address: { line1: String, line2: String },
@@ -147,7 +149,7 @@ Người dùng có thể lưu thông tin sức khỏe quan trọng:
 - Payment confirmations
 - System announcements
 
-### 3. Google Login Integration ✅ COMPLETED
+### 3. Google Login Integration ✅ COMPLETED & TESTED
 OAuth 2.0 authentication cho đăng nhập nhanh:
 
 **Features:**
@@ -168,13 +170,26 @@ OAuth 2.0 authentication cho đăng nhập nhanh:
 
 **Setup Required:**
 - Google Cloud Console project
-- Enable Google+ API
+- Enable People API (hoặc Google+ API)
 - Create OAuth 2.0 credentials
-- Add authorized origins: http://localhost:5173
+- Add authorized origins: http://localhost:5173 (và http://localhost:5174 nếu cần)
 - Set VITE_GOOGLE_CLIENT_ID trong frontend/.env
 
+**Troubleshooting:**
+- Port conflicts: Sử dụng `npm run dev:safe` để tự động kill port 5173
+- Vite strictPort: Config để không auto-switch sang port khác
+- origin_mismatch error: Kiểm tra authorized origins trong Google Console
+- Backend restart: Luôn restart backend sau khi thêm routes mới
+
+**Documentation:**
+- GOOGLE_OAUTH_SETUP.md - Hướng dẫn chi tiết 7 bước
+- GOOGLE_SETUP_SIMPLE.md - Hướng dẫn đơn giản bằng tiếng Việt
+- GOOGLE_QUICK_GUIDE.txt - Quick reference
+- FIX_ORIGIN_MISMATCH.md - Troubleshooting guide
+- PORT_5173_GUIDE.md - Port management guide
+
 **Branch**: feature/google-login
-**Status**: Ready for testing (cần Google Client ID)
+**Status**: ✅ TESTED & WORKING - Ready to merge
 
 ### 4. Multilanguage Support (Pending)
 - English (EN)
@@ -257,6 +272,8 @@ CURRENCY=USD
 ### Frontend (.env)
 ```
 VITE_BACKEND_URL=http://localhost:4000
+VITE_GOOGLE_CLIENT_ID=<your_google_oauth_client_id>
+VITE_RAZORPAY_KEY_ID=<razorpay_key_id>
 ```
 
 ## Running the Application
@@ -272,7 +289,9 @@ npm start
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev        # Chạy bình thường
+npm run dev:safe   # Tự động kill port 5173 trước khi chạy
+npm run kill-port  # Chỉ kill port 5173
 ```
 
 ### Admin Panel
@@ -284,20 +303,36 @@ npm run dev
 
 ## Testing Checklist
 
-### User Profile Feature
-- [ ] Register new user
-- [ ] Login successfully
-- [ ] View profile page
-- [ ] Edit basic information (name, phone, address, gender, DOB)
-- [ ] Upload profile image
-- [ ] Select blood type
-- [ ] Add symptoms (comma-separated)
-- [ ] Add diseases (comma-separated)
-- [ ] Add allergies (comma-separated)
-- [ ] Add medications (comma-separated)
-- [ ] Set emergency contact information
-- [ ] Save all changes
-- [ ] Verify data persists after reload
+### User Profile Feature ✅
+
+- [x] Register new user
+- [x] Login successfully
+- [x] View profile page
+- [x] Edit basic information (name, phone, address, gender, DOB)
+- [x] Upload profile image
+- [x] Select blood type
+- [x] Add symptoms (comma-separated)
+- [x] Add diseases (comma-separated)
+- [x] Add allergies (comma-separated)
+- [x] Add medications (comma-separated)
+- [x] Set emergency contact information
+- [x] Save all changes
+- [x] Verify data persists after reload
+
+### Google Login Feature ✅
+
+- [x] Setup Google Cloud Console project
+- [x] Enable People API
+- [x] Create OAuth 2.0 credentials
+- [x] Configure authorized JavaScript origins
+- [x] Add VITE_GOOGLE_CLIENT_ID to .env
+- [x] Click "Sign in with Google" button
+- [x] Select Google account
+- [x] Successfully login with new Google user (auto-create account)
+- [x] Successfully login with existing user
+- [x] Profile picture synced from Google
+- [x] JWT token stored and user redirected
+- [x] Backend endpoint working correctly
 
 ## Known Issues & Technical Debt
 - None currently
@@ -341,6 +376,6 @@ npm run dev
 
 ---
 
-**Last Updated**: 2025-10-20
-**Current Version**: Enhanced User Profile v1.0
-**Next Feature**: Notification System
+**Last Updated**: 2025-10-21
+**Current Version**: v2.0 - Enhanced User Profile + Google Login
+**Next Feature**: Notification System or Multilanguage Support
