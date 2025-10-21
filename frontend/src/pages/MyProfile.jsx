@@ -3,8 +3,11 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { assets } from '../assets/assets'
+import { useTranslation } from 'react-i18next'
 
 const MyProfile = () => {
+
+    const { t } = useTranslation()
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -26,7 +29,7 @@ const MyProfile = () => {
             formData.append('dob', userData.dob)
 
             // Add health information
-            formData.append('bloodType', userData.bloodType || 'Not Specified')
+            formData.append('bloodType', userData.bloodType || t('myProfile.notSpecified'))
             formData.append('symptoms', JSON.stringify(userData.symptoms || []))
             formData.append('diseases', JSON.stringify(userData.diseases || []))
             formData.append('allergies', JSON.stringify(userData.allergies || []))
@@ -75,18 +78,18 @@ const MyProfile = () => {
             <hr className='bg-[#ADADAD] h-[1px] border-none' />
 
             <div>
-                <p className='text-gray-600 underline mt-3'>CONTACT INFORMATION</p>
+                <p className='text-gray-600 underline mt-3'>{t('myProfile.contactInfo')}</p>
                 <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-[#363636]'>
-                    <p className='font-medium'>Email id:</p>
+                    <p className='font-medium'>{t('myProfile.emailId')}</p>
                     <p className='text-blue-500'>{userData.email}</p>
-                    <p className='font-medium'>Phone:</p>
+                    <p className='font-medium'>{t('myProfile.phone')}</p>
 
                     {isEdit
                         ? <input className='bg-gray-50 max-w-52' type="text" onChange={(e) => setUserData(prev => ({ ...prev, phone: e.target.value }))} value={userData.phone} />
                         : <p className='text-blue-500'>{userData.phone}</p>
                     }
 
-                    <p className='font-medium'>Address:</p>
+                    <p className='font-medium'>{t('myProfile.address')}</p>
 
                     {isEdit
                         ? <p>
@@ -99,20 +102,20 @@ const MyProfile = () => {
                 </div>
             </div>
             <div>
-                <p className='text-[#797979] underline mt-3'>BASIC INFORMATION</p>
+                <p className='text-[#797979] underline mt-3'>{t('myProfile.basicInfo')}</p>
                 <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-gray-600'>
-                    <p className='font-medium'>Gender:</p>
+                    <p className='font-medium'>{t('myProfile.gender')}</p>
 
                     {isEdit
                         ? <select className='max-w-20 bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, gender: e.target.value }))} value={userData.gender} >
-                            <option value="Not Selected">Not Selected</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="Not Selected">{t('myProfile.notSelected')}</option>
+                            <option value="Male">{t('myProfile.male')}</option>
+                            <option value="Female">{t('myProfile.female')}</option>
                         </select>
                         : <p className='text-gray-500'>{userData.gender}</p>
                     }
 
-                    <p className='font-medium'>Birthday:</p>
+                    <p className='font-medium'>{t('myProfile.birthday')}</p>
 
                     {isEdit
                         ? <input className='max-w-28 bg-gray-50' type='date' onChange={(e) => setUserData(prev => ({ ...prev, dob: e.target.value }))} value={userData.dob} />
@@ -123,13 +126,13 @@ const MyProfile = () => {
             </div>
 
             <div>
-                <p className='text-[#797979] underline mt-3'>HEALTH INFORMATION</p>
+                <p className='text-[#797979] underline mt-3'>{t('myProfile.healthInfo')}</p>
                 <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-gray-600'>
-                    <p className='font-medium'>Blood Type:</p>
+                    <p className='font-medium'>{t('myProfile.bloodType')}</p>
 
                     {isEdit
-                        ? <select className='max-w-32 bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, bloodType: e.target.value }))} value={userData.bloodType || 'Not Specified'} >
-                            <option value="Not Specified">Not Specified</option>
+                        ? <select className='max-w-32 bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, bloodType: e.target.value }))} value={userData.bloodType || t('myProfile.notSpecified')} >
+                            <option value="Not Specified">{t('myProfile.notSpecified')}</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
@@ -139,62 +142,62 @@ const MyProfile = () => {
                             <option value="O+">O+</option>
                             <option value="O-">O-</option>
                         </select>
-                        : <p className='text-gray-500'>{userData.bloodType || 'Not Specified'}</p>
+                        : <p className='text-gray-500'>{userData.bloodType || t('myProfile.notSpecified')}</p>
                     }
 
-                    <p className='font-medium'>Symptoms:</p>
+                    <p className='font-medium'>{t('myProfile.symptoms')}</p>
 
                     {isEdit
-                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter symptoms separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, symptoms: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.symptoms?.join(', ') || ''} />
-                        : <p className='text-gray-500'>{userData.symptoms?.join(', ') || 'None'}</p>
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder={t('myProfile.symptomsPlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, symptoms: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.symptoms?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.symptoms?.join(', ') || t('myProfile.notSet')}</p>
                     }
 
-                    <p className='font-medium'>Diseases:</p>
+                    <p className='font-medium'>{t('myProfile.diseases')}</p>
 
                     {isEdit
-                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter diseases separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, diseases: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.diseases?.join(', ') || ''} />
-                        : <p className='text-gray-500'>{userData.diseases?.join(', ') || 'None'}</p>
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder={t('myProfile.diseasesPlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, diseases: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.diseases?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.diseases?.join(', ') || t('myProfile.notSet')}</p>
                     }
 
-                    <p className='font-medium'>Allergies:</p>
+                    <p className='font-medium'>{t('myProfile.allergies')}</p>
 
                     {isEdit
-                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter allergies separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, allergies: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.allergies?.join(', ') || ''} />
-                        : <p className='text-gray-500'>{userData.allergies?.join(', ') || 'None'}</p>
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder={t('myProfile.allergiesPlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, allergies: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.allergies?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.allergies?.join(', ') || t('myProfile.notSet')}</p>
                     }
 
-                    <p className='font-medium'>Medications:</p>
+                    <p className='font-medium'>{t('myProfile.medications')}</p>
 
                     {isEdit
-                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder="Enter medications separated by commas" onChange={(e) => setUserData(prev => ({ ...prev, medications: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.medications?.join(', ') || ''} />
-                        : <p className='text-gray-500'>{userData.medications?.join(', ') || 'None'}</p>
+                        ? <textarea className='bg-gray-50 max-w-md' rows="2" placeholder={t('myProfile.medicationsPlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, medications: e.target.value.split(',').map(s => s.trim()).filter(s => s) }))} value={userData.medications?.join(', ') || ''} />
+                        : <p className='text-gray-500'>{userData.medications?.join(', ') || t('myProfile.notSet')}</p>
                     }
 
                 </div>
             </div>
 
             <div>
-                <p className='text-[#797979] underline mt-3'>EMERGENCY CONTACT</p>
+                <p className='text-[#797979] underline mt-3'>{t('myProfile.emergencyContact')}</p>
                 <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-gray-600'>
-                    <p className='font-medium'>Name:</p>
+                    <p className='font-medium'>{t('myProfile.emergencyName')}</p>
 
                     {isEdit
-                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Emergency contact name" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, name: e.target.value } }))} value={userData.emergencyContact?.name || ''} />
-                        : <p className='text-gray-500'>{userData.emergencyContact?.name || 'Not Set'}</p>
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder={t('myProfile.namePlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, name: e.target.value } }))} value={userData.emergencyContact?.name || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.name || t('myProfile.notSet')}</p>
                     }
 
-                    <p className='font-medium'>Phone:</p>
+                    <p className='font-medium'>{t('myProfile.emergencyPhone')}</p>
 
                     {isEdit
-                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Emergency contact phone" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, phone: e.target.value } }))} value={userData.emergencyContact?.phone || ''} />
-                        : <p className='text-gray-500'>{userData.emergencyContact?.phone || 'Not Set'}</p>
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder={t('myProfile.phonePlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, phone: e.target.value } }))} value={userData.emergencyContact?.phone || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.phone || t('myProfile.notSet')}</p>
                     }
 
-                    <p className='font-medium'>Relationship:</p>
+                    <p className='font-medium'>{t('myProfile.emergencyRelationship')}</p>
 
                     {isEdit
-                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder="Relationship" onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, relationship: e.target.value } }))} value={userData.emergencyContact?.relationship || ''} />
-                        : <p className='text-gray-500'>{userData.emergencyContact?.relationship || 'Not Set'}</p>
+                        ? <input className='bg-gray-50 max-w-52' type="text" placeholder={t('myProfile.relationshipPlaceholder')} onChange={(e) => setUserData(prev => ({ ...prev, emergencyContact: { ...prev.emergencyContact, relationship: e.target.value } }))} value={userData.emergencyContact?.relationship || ''} />
+                        : <p className='text-gray-500'>{userData.emergencyContact?.relationship || t('myProfile.notSet')}</p>
                     }
 
                 </div>
@@ -203,8 +206,8 @@ const MyProfile = () => {
             <div className='mt-10'>
 
                 {isEdit
-                    ? <button onClick={updateUserProfileData} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>Save information</button>
-                    : <button onClick={() => setIsEdit(true)} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>Edit</button>
+                    ? <button onClick={updateUserProfileData} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>{t('myProfile.saveInfo')}</button>
+                    : <button onClick={() => setIsEdit(true)} className='border border-primary px-8 py-2 rounded-full hover:bg-primary hover:text-white transition-all'>{t('myProfile.edit')}</button>
                 }
 
             </div>
