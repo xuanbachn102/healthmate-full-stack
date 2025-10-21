@@ -1,5 +1,37 @@
 # HealthMate - Context Documentation
 
+### Git Commit Guidelines
+⚠️ **IMPORTANT**:
+- KHÔNG BAO GIỜ đề cập đến AI, chatbot tools, hoặc code generators trong commit messages
+- Commit messages phải như được viết bởi developer thực
+- Focus vào technical changes và business value
+- Sử dụng conventional commits format
+
+**Good Examples:**
+```
+feat: Add blood type and health history to user profile
+
+- Added blood type selection with standard types
+- Implemented symptoms and disease tracking
+- Created emergency contact fields
+- Updated backend API to handle health data
+```
+
+```
+fix: Resolve profile image upload issue
+
+- Fixed Cloudinary upload timeout
+- Added proper error handling
+- Improved image compression
+```
+
+**Bad Examples (DON'T DO THIS):**
+```
+❌ AI-generated profile enhancement
+❌ Used Claude to add features
+❌ ChatGPT helped implement this
+```
+
 ## Project Overview
 HealthMate là một ứng dụng quản lý sức khỏe full-stack cho phép người dùng đặt lịch hẹn với bác sĩ, quản lý hồ sơ sức khỏe cá nhân và theo dõi các cuộc hẹn y tế.
 
@@ -191,11 +223,25 @@ OAuth 2.0 authentication cho đăng nhập nhanh:
 **Branch**: feature/google-login
 **Status**: ✅ TESTED & WORKING - Ready to merge
 
-### 4. Multilanguage Support (Pending)
-- English (EN)
-- Vietnamese (VI)
-- i18n implementation
-- Language switcher in UI
+### 4. Multilanguage Support ✅ COMPLETED
+**Features:**
+- English (EN) and Vietnamese (VI) translations
+- i18next implementation with react-i18next
+- Language switcher in navigation bar with flags
+- All pages translated: Home, Doctors, About, Contact, Profile, Appointments
+- Language persistence in localStorage
+- Dynamic content support with interpolation (e.g., copyright year)
+- Localized address for Vietnam office
+
+**Implementation:**
+- Frontend: i18next, react-i18next packages
+- Translation files: frontend/src/i18n/locales/{en,vi}.json
+- i18n config: frontend/src/i18n/i18n.js
+- Language switcher component with EN/VN flags
+- useTranslation hook in all components
+
+**Branch**: feature/multilanguage
+**Status**: ✅ MERGED TO MAIN
 
 ### 5. Dark Mode (Pending)
 - Toggle between light/dark themes
@@ -221,38 +267,6 @@ Mỗi feature được phát triển trên branch riêng:
 - `feature/multilanguage` - Hỗ trợ đa ngôn ngữ
 - `feature/dark-mode` - Chế độ tối
 - `feature/ai-chatbot` - Tích hợp chatbot AI
-
-### Git Commit Guidelines
-⚠️ **IMPORTANT**:
-- KHÔNG BAO GIỜ đề cập đến AI, chatbot tools, hoặc code generators trong commit messages
-- Commit messages phải như được viết bởi developer thực
-- Focus vào technical changes và business value
-- Sử dụng conventional commits format
-
-**Good Examples:**
-```
-feat: Add blood type and health history to user profile
-
-- Added blood type selection with standard types
-- Implemented symptoms and disease tracking
-- Created emergency contact fields
-- Updated backend API to handle health data
-```
-
-```
-fix: Resolve profile image upload issue
-
-- Fixed Cloudinary upload timeout
-- Added proper error handling
-- Improved image compression
-```
-
-**Bad Examples (DON'T DO THIS):**
-```
-❌ AI-generated profile enhancement
-❌ Used Claude to add features
-❌ ChatGPT helped implement this
-```
 
 ## Environment Variables
 
@@ -376,6 +390,6 @@ npm run dev
 
 ---
 
-**Last Updated**: 2025-10-21
-**Current Version**: v2.0 - Enhanced User Profile + Google Login
-**Next Feature**: Notification System or Multilanguage Support
+**Last Updated**: 2025-10-22
+**Current Version**: v3.0 - Enhanced User Profile + Google Login + Multilanguage Support
+**Next Feature**: Notification System or Dark Mode
