@@ -7,6 +7,7 @@ import appointmentModel from "../models/appointmentModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 import stripe from "stripe";
 import razorpay from 'razorpay';
+import { analyzeSymptoms as analyzeSymptomAI, chatWithBot as chatWithBotAI } from '../services/aiService.js';
 
 // Gateway Initialize
 const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
@@ -402,6 +403,154 @@ const verifyStripe = async (req, res) => {
 
 }
 
+// API to analyze symptoms using AI
+const analyzeSymptoms = async (req, res) => {
+    try {
+        const { userId, symptoms, duration, severity, age, gender } = req.body
+
+        if (!symptoms) {
+            return res.json({ success: false, message: 'Please provide symptoms' })
+        }
+
+        // Check rate limiting - get user's symptom checks today
+        const user = await userModel.findById(userId)
+        const today = new Date().setHours(0, 0, 0, 0)
+
+        // Initialize symptomChecks if not exists
+        if (!user.symptomChecks) {
+            user.symptomChecks = { count: 0, lastReset: new Date() }
+        }
+
+        // Reset counter if it's a new day
+        const lastReset = new Date(user.symptomChecks.lastReset).setHours(0, 0, 0, 0)
+        if (lastReset < today) {
+            user.symptomChecks = { count: 0, lastReset: new Date() }
+        }
+
+        // Check if user has exceeded daily limit (20 checks per day)
+        if (user.symptomChecks.count >= 20) {
+            return res.json({
+                success: false,
+                message: 'Daily symptom check limit reached. Please try again tomorrow.',
+                remainingChecks: 0
+            })
+        }
+
+        // Call AI service
+        const result = await analyzeSymptomAI({
+            symptoms,
+            duration,
+            severity,
+            age: age || user.dob,
+            gender: gender || user.gender
+        })
+
+        if (!result.success) {
+            return res.json(result)
+        }
+
+        // Increment symptom check counter
+        user.symptomChecks.count += 1
+        await user.save()
+
+        // Optionally save analysis to user history
+        const analysisHistory = {
+            symptoms,
+            duration,
+            severity,
+            result: result.data,
+            date: new Date()
+        }
+
+        // Add to user's symptom analysis history
+        if (!user.symptomAnalysisHistory) {
+            user.symptomAnalysisHistory = []
+        }
+        user.symptomAnalysisHistory.push(analysisHistory)
+        await user.save()
+
+        res.json({
+            success: true,
+            data: result.data,
+            remainingChecks: 20 - user.symptomChecks.count
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
+// API to chat with health assistant bot
+const chatWithBot = async (req, res) => {
+    try {
+        const { userId, message, chatHistory } = req.body
+
+        if (!message) {
+            return res.json({ success: false, message: 'Please provide a message' })
+        }
+
+        // Get user profile for context
+        const user = await userModel.findById(userId).select('-password')
+
+        // Check rate limiting - 50 messages per day
+        const today = new Date().setHours(0, 0, 0, 0)
+
+        // Initialize chatMessages if not exists
+        if (!user.chatMessages) {
+            user.chatMessages = { count: 0, lastReset: new Date() }
+        }
+
+        // Reset counter if it's a new day
+        const lastReset = new Date(user.chatMessages.lastReset).setHours(0, 0, 0, 0)
+        if (lastReset < today) {
+            user.chatMessages = { count: 0, lastReset: new Date() }
+        }
+
+        // Check if user has exceeded daily limit
+        if (user.chatMessages.count >= 50) {
+            return res.json({
+                success: false,
+                message: 'Daily chat limit reached. Please try again tomorrow.',
+                remainingMessages: 0
+            })
+        }
+
+        // Prepare user profile for AI context
+        const userProfile = {
+            allergies: user.allergies,
+            medications: user.medications,
+            diseases: user.diseases,
+            bloodType: user.bloodType
+        }
+
+        // Call AI service
+        const result = await chatWithBotAI({
+            message,
+            chatHistory: chatHistory || [],
+            userProfile
+        })
+
+        if (!result.success) {
+            return res.json(result)
+        }
+
+        // Increment chat message counter
+        user.chatMessages.count += 1
+        await user.save()
+
+        res.json({
+            success: true,
+            data: result.data,
+            remainingMessages: 50 - user.chatMessages.count
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
 export {
     loginUser,
     registerUser,
@@ -414,5 +563,7 @@ export {
     paymentRazorpay,
     verifyRazorpay,
     paymentStripe,
-    verifyStripe
+    verifyStripe,
+    analyzeSymptoms,
+    chatWithBot
 }

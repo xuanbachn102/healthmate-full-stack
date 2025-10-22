@@ -18,6 +18,17 @@ const userSchema = new mongoose.Schema({
     allergies: { type: [String], default: [] },
     medications: { type: [String], default: [] },
     emergencyContact: { type: Object, default: { name: '', phone: '', relationship: '' } },
+    // AI Features Rate Limiting
+    symptomChecks: {
+        type: Object,
+        default: { count: 0, lastReset: Date.now() }
+    },
+    chatMessages: {
+        type: Object,
+        default: { count: 0, lastReset: Date.now() }
+    },
+    // AI Symptom Analysis History
+    symptomAnalysisHistory: { type: [Object], default: [] },
 })
 
 const userModel = mongoose.models.user || mongoose.model("user", userSchema);

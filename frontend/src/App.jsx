@@ -9,7 +9,9 @@ import Contact from './pages/Contact'
 import Appointment from './pages/Appointment'
 import MyAppointments from './pages/MyAppointments'
 import MyProfile from './pages/MyProfile'
+import SymptomChecker from './pages/SymptomChecker'
 import Footer from './components/Footer'
+import ChatWidget from './components/ChatWidget'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify'
@@ -18,7 +20,7 @@ import { ThemeProvider } from './context/ThemeContext'
 const App = () => {
   return (
     <ThemeProvider>
-      <div className='mx-4 sm:mx-[10%] bg-white dark:bg-gray-900 min-h-screen transition-colors'>
+      <div className='mx-4 sm:mx-[10%] bg-white dark:bg-gray-900 min-h-screen'>
         <ToastContainer />
         <Navbar />
         <Routes>
@@ -28,12 +30,14 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/appointment/:docId' element={<Appointment />} />
           <Route path='/my-appointments' element={<MyAppointments />} />
           <Route path='/my-profile' element={<MyProfile />} />
+          <Route path='/symptom-checker' element={<SymptomChecker />} />
+          <Route path='/appointment/:docId' element={<Appointment />} />
           <Route path='/verify' element={<Verify />} />
         </Routes>
         <Footer />
+        <ChatWidget />
       </div>
     </ThemeProvider>
   )

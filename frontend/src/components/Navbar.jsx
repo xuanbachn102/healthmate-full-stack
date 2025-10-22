@@ -32,6 +32,10 @@ const Navbar = () => {
           <li className='py-1'>{t('nav.allDoctors')}</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
+        <NavLink to='/symptom-checker' >
+          <li className='py-1'>{t('nav.symptomChecker')}</li>
+          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+        </NavLink>
         <NavLink to='/about' >
           <li className='py-1'>{t('nav.about')}</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
@@ -71,6 +75,7 @@ const Navbar = () => {
           <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium dark:text-gray-100'>
             <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-4 py-2 rounded full inline-block'>{t('nav.home')}</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/doctors' ><p className='px-4 py-2 rounded full inline-block'>{t('nav.allDoctors')}</p></NavLink>
+            <NavLink onClick={() => setShowMenu(false)} to='/symptom-checker' ><p className='px-4 py-2 rounded full inline-block'>{t('nav.symptomChecker')}</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/about' ><p className='px-4 py-2 rounded full inline-block'>{t('nav.about')}</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/contact' ><p className='px-4 py-2 rounded full inline-block'>{t('nav.contact')}</p></NavLink>
           </ul>
