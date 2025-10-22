@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginUser, registerUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, paymentRazorpay, verifyRazorpay, paymentStripe, verifyStripe, analyzeSymptoms, chatWithBot } from '../controllers/userController.js';
+import { loginUser, registerUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, paymentMoMo, verifyMoMo, checkMoMoPayment, analyzeSymptoms, chatWithBot } from '../controllers/userController.js';
 import upload from '../middleware/multer.js';
 import authUser from '../middleware/authUser.js';
 const userRouter = express.Router();
@@ -13,10 +13,11 @@ userRouter.post("/update-profile", upload.single('image'), authUser, updateProfi
 userRouter.post("/book-appointment", authUser, bookAppointment)
 userRouter.get("/appointments", authUser, listAppointment)
 userRouter.post("/cancel-appointment", authUser, cancelAppointment)
-userRouter.post("/payment-razorpay", authUser, paymentRazorpay)
-userRouter.post("/verifyRazorpay", authUser, verifyRazorpay)
-userRouter.post("/payment-stripe", authUser, paymentStripe)
-userRouter.post("/verifyStripe", authUser, verifyStripe)
+
+// MoMo Payment
+userRouter.post("/payment-momo", authUser, paymentMoMo)
+userRouter.post("/verify-momo", verifyMoMo) // No auth - MoMo callback
+userRouter.post("/check-momo-payment", authUser, checkMoMoPayment)
 
 // AI Features
 userRouter.post("/analyze-symptoms", authUser, analyzeSymptoms)

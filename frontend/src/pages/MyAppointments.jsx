@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { assets } from '../assets/assets'
 import { useTranslation } from 'react-i18next'
 
 const MyAppointments = () => {
@@ -13,7 +12,6 @@ const MyAppointments = () => {
     const navigate = useNavigate()
 
     const [appointments, setAppointments] = useState([])
-    const [payment, setPayment] = useState('')
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -57,58 +55,14 @@ const MyAppointments = () => {
 
     }
 
-    const initPay = (order) => {
-        const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-            amount: order.amount,
-            currency: order.currency,
-            name: t('myAppointments.paymentDescription'),
-            description: t('myAppointments.paymentDescription'),
-            order_id: order.id,
-            receipt: order.receipt,
-            handler: async (response) => {
-
-                console.log(response)
-
-                try {
-                    const { data } = await axios.post(backendUrl + "/api/user/verifyRazorpay", response, { headers: { token } });
-                    if (data.success) {
-                        navigate('/my-appointments')
-                        getUserAppointments()
-                    }
-                } catch (error) {
-                    console.log(error)
-                    toast.error(error.message)
-                }
-            }
-        };
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-    };
-
-    // Function to make payment using razorpay
-    const appointmentRazorpay = async (appointmentId) => {
+    // Function to make payment using MoMo
+    const appointmentMoMo = async (appointmentId) => {
         try {
-            const { data } = await axios.post(backendUrl + '/api/user/payment-razorpay', { appointmentId }, { headers: { token } })
+            const { data } = await axios.post(backendUrl + '/api/user/payment-momo', { appointmentId }, { headers: { token } })
             if (data.success) {
-                initPay(data.order)
-            }else{
-                toast.error(data.message)
-            }
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
-    }
-
-    // Function to make payment using stripe
-    const appointmentStripe = async (appointmentId) => {
-        try {
-            const { data } = await axios.post(backendUrl + '/api/user/payment-stripe', { appointmentId }, { headers: { token } })
-            if (data.success) {
-                const { session_url } = data
-                window.location.replace(session_url)
-            }else{
+                const { payUrl } = data
+                window.location.replace(payUrl)
+            } else {
                 toast.error(data.message)
             }
         } catch (error) {
@@ -144,9 +98,10 @@ const MyAppointments = () => {
                         </div>
                         <div></div>
                         <div className='flex flex-col gap-2 justify-end text-sm text-center'>
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment !== item._id && <button onClick={() => setPayment(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-primary sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>{t('myAppointments.payOnline')}</button>}
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentStripe(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700 sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.stripe_logo} alt="" /></button>}
-                            {!item.cancelled && !item.payment && !item.isCompleted && payment === item._id && <button onClick={() => appointmentRazorpay(item._id)} className='text-[#696969] dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700 sm:min-w-48 py-2 border rounded hover:bg-gray-100 hover:text-white transition-all duration-300 flex items-center justify-center'><img className='max-w-20 max-h-5' src={assets.razorpay_logo} alt="" /></button>}
+                            {!item.cancelled && !item.payment && !item.isCompleted && <button onClick={() => appointmentMoMo(item._id)} className='text-white bg-pink-600 dark:bg-pink-700 dark:hover:bg-pink-800 sm:min-w-48 py-2 border border-pink-600 dark:border-pink-700 rounded hover:bg-pink-700 transition-all duration-300 flex items-center justify-center gap-2'>
+                                <span className='font-semibold'>MoMo</span>
+                                <span>{t('myAppointments.payOnline')}</span>
+                            </button>}
                             {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48 py-2 border dark:border-gray-700 rounded text-[#696969] dark:text-gray-200 bg-[#EAEFFF] dark:bg-gray-700'>{t('myAppointments.paid')}</button>}
 
                             {item.isCompleted && <button className='sm:min-w-48 py-2 border border-green-500 dark:border-green-600 rounded text-green-500 dark:text-green-400'>{t('myAppointments.completed')}</button>}

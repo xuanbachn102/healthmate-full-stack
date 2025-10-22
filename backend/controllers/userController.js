@@ -5,16 +5,8 @@ import userModel from "../models/userModel.js";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 import { v2 as cloudinary } from 'cloudinary'
-import stripe from "stripe";
-import razorpay from 'razorpay';
 import { analyzeSymptoms as analyzeSymptomAI, chatWithBot as chatWithBotAI } from '../services/aiService.js';
-
-// Gateway Initialize
-const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
-const razorpayInstance = new razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-})
+import { createMoMoPayment, verifyMoMoCallback } from '../services/momoService.js';
 
 // API to register user
 const registerUser = async (req, res) => {
@@ -295,113 +287,6 @@ const listAppointment = async (req, res) => {
     }
 }
 
-// API to make payment of appointment using razorpay
-const paymentRazorpay = async (req, res) => {
-    try {
-
-        const { appointmentId } = req.body
-        const appointmentData = await appointmentModel.findById(appointmentId)
-
-        if (!appointmentData || appointmentData.cancelled) {
-            return res.json({ success: false, message: 'Appointment Cancelled or not found' })
-        }
-
-        // creating options for razorpay payment
-        const options = {
-            amount: appointmentData.amount * 100,
-            currency: process.env.CURRENCY,
-            receipt: appointmentId,
-        }
-
-        // creation of an order
-        const order = await razorpayInstance.orders.create(options)
-
-        res.json({ success: true, order })
-
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-
-// API to verify payment of razorpay
-const verifyRazorpay = async (req, res) => {
-    try {
-        const { razorpay_order_id } = req.body
-        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
-
-        if (orderInfo.status === 'paid') {
-            await appointmentModel.findByIdAndUpdate(orderInfo.receipt, { payment: true })
-            res.json({ success: true, message: "Payment Successful" })
-        }
-        else {
-            res.json({ success: false, message: 'Payment Failed' })
-        }
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-
-// API to make payment of appointment using Stripe
-const paymentStripe = async (req, res) => {
-    try {
-
-        const { appointmentId } = req.body
-        const { origin } = req.headers
-
-        const appointmentData = await appointmentModel.findById(appointmentId)
-
-        if (!appointmentData || appointmentData.cancelled) {
-            return res.json({ success: false, message: 'Appointment Cancelled or not found' })
-        }
-
-        const currency = process.env.CURRENCY.toLocaleLowerCase()
-
-        const line_items = [{
-            price_data: {
-                currency,
-                product_data: {
-                    name: "Appointment Fees"
-                },
-                unit_amount: appointmentData.amount * 100
-            },
-            quantity: 1
-        }]
-
-        const session = await stripeInstance.checkout.sessions.create({
-            success_url: `${origin}/verify?success=true&appointmentId=${appointmentData._id}`,
-            cancel_url: `${origin}/verify?success=false&appointmentId=${appointmentData._id}`,
-            line_items: line_items,
-            mode: 'payment',
-        })
-
-        res.json({ success: true, session_url: session.url });
-
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-}
-
-const verifyStripe = async (req, res) => {
-    try {
-
-        const { appointmentId, success } = req.body
-
-        if (success === "true") {
-            await appointmentModel.findByIdAndUpdate(appointmentId, { payment: true })
-            return res.json({ success: true, message: 'Payment Successful' })
-        }
-
-        res.json({ success: false, message: 'Payment Failed' })
-
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
-
-}
 
 // API to analyze symptoms using AI
 const analyzeSymptoms = async (req, res) => {
@@ -551,6 +436,87 @@ const chatWithBot = async (req, res) => {
     }
 }
 
+// API to make payment using MoMo
+const paymentMoMo = async (req, res) => {
+    try {
+        const { appointmentId } = req.body;
+        const { origin } = req.headers;
+
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+        if (!appointmentData || appointmentData.cancelled) {
+            return res.json({ success: false, message: 'Appointment Cancelled or not found' });
+        }
+
+        // Prepare MoMo payment data
+        const orderInfo = {
+            orderId: appointmentId,
+            amount: appointmentData.amount,
+            orderInfo: `HealthMate - Appointment with Dr. ${appointmentData.docData.name}`,
+            returnUrl: `${origin}/verify?appointmentId=${appointmentId}`,
+            notifyUrl: `${process.env.BACKEND_URL || 'http://localhost:4000'}/api/user/verify-momo`
+        };
+
+        const result = await createMoMoPayment(orderInfo);
+
+        if (result.success) {
+            res.json({ success: true, payUrl: result.payUrl });
+        } else {
+            res.json({ success: false, message: result.message });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
+// API to verify MoMo payment callback (IPN)
+const verifyMoMo = async (req, res) => {
+    try {
+        const callbackData = req.body;
+
+        const verification = verifyMoMoCallback(callbackData);
+
+        if (verification.verified && verification.success) {
+            // Payment successful
+            await appointmentModel.findByIdAndUpdate(callbackData.orderId, { payment: true });
+
+            // MoMo requires 204 response for IPN
+            return res.status(204).send();
+        } else {
+            return res.json({ success: false, message: 'Payment verification failed' });
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
+// API to check MoMo payment status (for frontend polling)
+const checkMoMoPayment = async (req, res) => {
+    try {
+        const { appointmentId } = req.body;
+
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+        if (!appointmentData) {
+            return res.json({ success: false, message: 'Appointment not found' });
+        }
+
+        // Return payment status
+        res.json({
+            success: true,
+            paid: appointmentData.payment || false
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
 export {
     loginUser,
     registerUser,
@@ -560,10 +526,9 @@ export {
     bookAppointment,
     listAppointment,
     cancelAppointment,
-    paymentRazorpay,
-    verifyRazorpay,
-    paymentStripe,
-    verifyStripe,
+    paymentMoMo,
+    verifyMoMo,
+    checkMoMoPayment,
     analyzeSymptoms,
     chatWithBot
 }
