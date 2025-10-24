@@ -7,6 +7,7 @@ import appointmentModel from "../models/appointmentModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 import { analyzeSymptoms as analyzeSymptomAI, chatWithBot as chatWithBotAI } from '../services/aiService.js';
 import { createMoMoPayment, verifyMoMoCallback } from '../services/momoService.js';
+import { createNotification } from './notificationController.js';
 
 // API to register user
 const registerUser = async (req, res) => {
@@ -234,6 +235,16 @@ const bookAppointment = async (req, res) => {
         // save new slots data in docData
         await doctorModel.findByIdAndUpdate(docId, { slots_booked })
 
+        // Create notification for appointment confirmation
+        await createNotification(
+            userId,
+            'appointment_confirmed',
+            'Appointment Confirmed',
+            `Your appointment with Dr. ${docData.name} on ${slotDate} at ${slotTime} has been confirmed.`,
+            newAppointment._id,
+            { doctorName: docData.name, slotDate, slotTime }
+        );
+
         res.json({ success: true, message: 'Appointment Booked' })
 
     } catch (error) {
@@ -267,6 +278,16 @@ const cancelAppointment = async (req, res) => {
         slots_booked[slotDate] = slots_booked[slotDate].filter(e => e !== slotTime)
 
         await doctorModel.findByIdAndUpdate(docId, { slots_booked })
+
+        // Create notification for appointment cancellation
+        await createNotification(
+            userId,
+            'appointment_cancelled',
+            'Appointment Cancelled',
+            `Your appointment with Dr. ${appointmentData.docData.name} on ${slotDate} at ${slotTime} has been cancelled.`,
+            appointmentId,
+            { doctorName: appointmentData.docData.name, slotDate, slotTime }
+        );
 
         res.json({ success: true, message: 'Appointment Cancelled' })
 

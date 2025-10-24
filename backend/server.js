@@ -8,6 +8,7 @@ import doctorRouter from "./routes/doctorRoute.js"
 import adminRouter from "./routes/adminRoute.js"
 import newsRouter from "./routes/newsRoutes.js"
 import profileRouter from "./routes/profileRoutes.js"
+import notificationRouter from "./routes/notificationRoutes.js"
 
 // app config
 const app = express()
@@ -25,6 +26,7 @@ app.use("/api/admin", adminRouter)
 app.use("/api/doctor", doctorRouter)
 app.use("/api/news", newsRouter)
 app.use("/api/profile", profileRouter)
+app.use("/api/notification", notificationRouter)
 
 app.get("/", (req, res) => {
   res.send("API Working")
