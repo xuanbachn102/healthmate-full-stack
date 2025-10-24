@@ -12,6 +12,8 @@ const AppContextProvider = (props) => {
     const [doctors, setDoctors] = useState([])
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
     const [userData, setUserData] = useState(false)
+    const [profiles, setProfiles] = useState([])
+    const [activeProfile, setActiveProfile] = useState(null)
 
     // Getting Doctors using API
     const getDoctosData = async () => {
@@ -52,6 +54,30 @@ const AppContextProvider = (props) => {
 
     }
 
+    // Getting Profiles using API
+    const loadProfiles = async () => {
+
+        try {
+
+            const { data } = await axios.get(backendUrl + '/api/profile/list', { headers: { token } })
+
+            if (data.success) {
+                setProfiles(data.profiles)
+                // Set active profile to default or first profile
+                const defaultProfile = data.profiles.find(p => p.isDefault)
+                if (defaultProfile) {
+                    setActiveProfile(defaultProfile)
+                } else if (data.profiles.length > 0) {
+                    setActiveProfile(data.profiles[0])
+                }
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     useEffect(() => {
         getDoctosData()
     }, [])
@@ -59,6 +85,10 @@ const AppContextProvider = (props) => {
     useEffect(() => {
         if (token) {
             loadUserProfileData()
+            loadProfiles()
+        } else {
+            setProfiles([])
+            setActiveProfile(null)
         }
     }, [token])
 
@@ -67,7 +97,9 @@ const AppContextProvider = (props) => {
         currencySymbol,
         backendUrl,
         token, setToken,
-        userData, setUserData, loadUserProfileData
+        userData, setUserData, loadUserProfileData,
+        profiles, setProfiles, loadProfiles,
+        activeProfile, setActiveProfile
     }
 
     return (

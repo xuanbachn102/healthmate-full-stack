@@ -12,6 +12,7 @@ import MyProfile from './pages/MyProfile'
 import SymptomChecker from './pages/SymptomChecker'
 import HealthNews from './pages/HealthNews'
 import Profiles from './pages/Profiles'
+import ProfileEdit from './pages/ProfileEdit'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
 import { ToastContainer } from 'react-toastify';
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/my-appointments' element={<MyAppointments />} />
           <Route path='/my-profile' element={<MyProfile />} />
           <Route path='/profiles' element={<Profiles />} />
+          <Route path='/profile/:profileId' element={<ProfileEdit />} />
           <Route path='/symptom-checker' element={<SymptomChecker />} />
           <Route path='/health-news' element={<HealthNews />} />
           <Route path='/appointment/:docId' element={<Appointment />} />
