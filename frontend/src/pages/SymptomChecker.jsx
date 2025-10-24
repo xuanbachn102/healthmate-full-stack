@@ -340,21 +340,92 @@ const SymptomChecker = () => {
               </p>
             </div>
 
+            {/* Symptom Summary */}
+            {result.symptomSummary && (
+              <div className='mb-6'>
+                <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>
+                  Mô tả triệu chứng
+                </h3>
+                <p className='text-gray-600 dark:text-gray-300'>
+                  {result.symptomSummary}
+                </p>
+              </div>
+            )}
+
+            {/* Possible Causes */}
+            {result.possibleCauses && result.possibleCauses.length > 0 && (
+              <div className='mb-6'>
+                <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-3'>
+                  Nguyên nhân có thể
+                </h3>
+                <ol className='list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-300'>
+                  {result.possibleCauses.map((cause, index) => (
+                    <li key={index} className='leading-relaxed'>
+                      {cause}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {/* Related Conditions */}
+            {result.relatedConditions && result.relatedConditions.length > 0 && (
+              <div className='mb-6'>
+                <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-3'>
+                  Các bệnh liên quan
+                </h3>
+                <ul className='list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300'>
+                  {result.relatedConditions.map((condition, index) => (
+                    <li key={index}>{condition}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Medical Info */}
+            {result.medicalInfo && (
+              <div className='mb-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded'>
+                <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>
+                  Thông tin y tế
+                </h3>
+                <p className='text-gray-700 dark:text-gray-300 italic'>
+                  {result.medicalInfo}
+                </p>
+              </div>
+            )}
+
             {/* Reasoning */}
             <div className='mb-6'>
               <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>
-                Why this specialty?
+                Tại sao chuyên khoa này?
               </h3>
               <p className='text-gray-600 dark:text-gray-300'>
                 {result.reasoning}
               </p>
             </div>
 
+            {/* Immediate Actions */}
+            {result.immediateActions && result.immediateActions.length > 0 && (
+              <div className='mb-6 bg-green-50 dark:bg-green-900/20 border border-green-500 rounded-lg p-4'>
+                <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-3'>
+                  Điều trị/Quản lý
+                </h3>
+                <ul className='space-y-2 text-gray-600 dark:text-gray-300'>
+                  {result.immediateActions.map((action, index) => (
+                    <li key={index} className='flex items-start'>
+                      <span className='text-green-600 mr-2'>•</span>
+                      <span>{action}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Additional Advice */}
             {result.additionalAdvice && (
               <div className='mb-6'>
                 <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>
-                  Additional Advice
+                  Lời khuyên thêm
                 </h3>
                 <p className='text-gray-600 dark:text-gray-300'>
                   {result.additionalAdvice}
