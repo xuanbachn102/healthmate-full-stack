@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
     address: { type: Object, default: { line1: '', line2: '' } },
     gender: { type: String, default: 'Not Selected' },
     dob: { type: String, default: 'Not Selected' },
+    ethnicity: { type: String, default: 'Not Selected' },
+    occupation: { type: String, default: 'Not Selected' },
     password: { type: String, required: true },
     // Google OAuth
     googleId: { type: String, unique: true, sparse: true },

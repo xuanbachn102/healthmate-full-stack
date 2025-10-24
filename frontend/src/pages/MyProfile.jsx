@@ -27,6 +27,8 @@ const MyProfile = () => {
             formData.append('address', JSON.stringify(userData.address))
             formData.append('gender', userData.gender)
             formData.append('dob', userData.dob)
+            formData.append('ethnicity', userData.ethnicity)
+            formData.append('occupation', userData.occupation)
 
             // Add health information
             formData.append('bloodType', userData.bloodType || t('myProfile.notSpecified'))
@@ -120,6 +122,20 @@ const MyProfile = () => {
                     {isEdit
                         ? <input className='max-w-28 bg-gray-50 dark:bg-gray-800 dark:text-white' type='date' onChange={(e) => setUserData(prev => ({ ...prev, dob: e.target.value }))} value={userData.dob} />
                         : <p className='text-gray-500 dark:text-gray-300'>{userData.dob}</p>
+                    }
+
+                    <p className='font-medium'>{t('myProfile.ethnicity')}</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 dark:bg-gray-800 dark:text-white' type='text' onChange={(e) => setUserData(prev => ({ ...prev, ethnicity: e.target.value }))} value={userData.ethnicity} />
+                        : <p className='text-gray-500 dark:text-gray-300'>{userData.ethnicity}</p>
+                    }
+
+                    <p className='font-medium'>{t('myProfile.occupation')}</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 dark:bg-gray-800 dark:text-white' type='text' onChange={(e) => setUserData(prev => ({ ...prev, occupation: e.target.value }))} value={userData.occupation} />
+                        : <p className='text-gray-500 dark:text-gray-300'>{userData.occupation}</p>
                     }
 
                 </div>

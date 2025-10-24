@@ -104,6 +104,8 @@
     "address": "Address:",
     "gender": "Gender:",
     "birthday": "Birthday:",
+    "ethnicity": "Ethnicity:",
+    "occupation": "Occupation:",
     "bloodType": "Blood Type:",
     "symptoms": "Symptoms:",
     "diseases": "Diseases:",

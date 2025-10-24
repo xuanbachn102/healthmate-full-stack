@@ -139,7 +139,7 @@ const updateProfile = async (req, res) => {
 
     try {
 
-        const { userId, name, phone, address, dob, gender, bloodType, symptoms, diseases, allergies, medications, emergencyContact } = req.body
+        const { userId, name, phone, address, dob, gender, ethnicity, occupation, bloodType, symptoms, diseases, allergies, medications, emergencyContact } = req.body
         const imageFile = req.file
 
         if (!name || !phone || !dob || !gender) {
@@ -152,7 +152,9 @@ const updateProfile = async (req, res) => {
             phone,
             address: JSON.parse(address),
             dob,
-            gender
+            gender,
+            ethnicity,
+            occupation
         }
 
         // Add health information if provided
