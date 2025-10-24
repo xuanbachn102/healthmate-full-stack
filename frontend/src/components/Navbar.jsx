@@ -61,6 +61,7 @@ const Navbar = () => {
               <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 dark:text-gray-200 z-20 hidden group-hover:block'>
                 <div className='min-w-48 bg-gray-50 dark:bg-gray-800 rounded flex flex-col gap-4 p-4'>
                   <p onClick={() => navigate('/my-profile')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.myProfile')}</p>
+                  <p onClick={() => navigate('/profiles')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.profiles') || 'Hồ sơ'}</p>
                   <p onClick={() => navigate('/my-appointments')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.myAppointments')}</p>
                   <p onClick={logout} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.logout')}</p>
                 </div>
