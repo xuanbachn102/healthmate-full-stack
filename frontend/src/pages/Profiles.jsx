@@ -11,7 +11,7 @@ const Profiles = () => {
   const { token, backendUrl, profiles: contextProfiles, loadProfiles } = useContext(AppContext);
 
   const [profiles, setProfiles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newProfile, setNewProfile] = useState({
     name: '',
@@ -34,10 +34,7 @@ const Profiles = () => {
   ];
 
   useEffect(() => {
-    if (contextProfiles) {
-      setProfiles(contextProfiles);
-      setLoading(false);
-    }
+    setProfiles(contextProfiles || []);
   }, [contextProfiles]);
 
   const handleCreateProfile = async () => {

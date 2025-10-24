@@ -8,36 +8,63 @@ const Footer = () => {
 
   return (
     <div className='md:mx-10'>
-      <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10  mt-40 text-sm'>
+      <div className='flex flex-col sm:grid grid-cols-[2fr_1fr_1fr_1fr] gap-10 my-10 mt-40 text-sm'>
 
+        {/* Company Info */}
         <div>
-          {/*<img className='mb-5 w-40' src={assets.logo} alt="" />*/}
-          <p className='w-full md:w-2/3 text-gray-600 dark:text-gray-300 leading-6'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <img className='mb-5 w-40 dark:invert dark:brightness-0 dark:contrast-200' src={assets.logo} alt="HealthMate" />
+          <p className='font-semibold text-gray-900 dark:text-white mb-2'>{t('footer.companyName')}</p>
+          <div className='text-gray-600 dark:text-gray-300 leading-6 space-y-2'>
+            <p>{t('footer.address')}</p>
+            <p>{t('footer.hotline')}</p>
+            <p className='text-xs mt-3'>{t('footer.businessLicense')}</p>
+          </div>
         </div>
 
+        {/* About */}
         <div>
-          <p className='text-xl font-medium mb-5 dark:text-white'>{t('footer.company')}</p>
+          <p className='text-lg font-semibold mb-4 dark:text-white'>{t('footer.aboutTitle')}</p>
           <ul className='flex flex-col gap-2 text-gray-600 dark:text-gray-300'>
-            <li>{t('footer.home')}</li>
-            <li>{t('footer.aboutUs')}</li>
-            <li>{t('footer.delivery')}</li>
-            <li>{t('footer.privacyPolicy')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.about')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.management')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.careers')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.contact')}</li>
           </ul>
         </div>
 
+        {/* Services */}
         <div>
-          <p className='text-xl font-medium mb-5 dark:text-white'>{t('footer.getInTouch')}</p>
+          <p className='text-lg font-semibold mb-4 dark:text-white'>{t('footer.servicesTitle')}</p>
           <ul className='flex flex-col gap-2 text-gray-600 dark:text-gray-300'>
-            <li>0337714282</li>
-            <li>xuanbachggl@gmail.com</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.bookDoctor')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.bookHospital')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.bookClinic')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.symptomChecker')}</li>
+          </ul>
+        </div>
+
+        {/* Support */}
+        <div>
+          <p className='text-lg font-semibold mb-4 dark:text-white'>{t('footer.supportTitle')}</p>
+          <ul className='flex flex-col gap-2 text-gray-600 dark:text-gray-300'>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.terms')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.privacy')}</li>
+            <li className='hover:text-primary cursor-pointer'>{t('footer.complaint')}</li>
+            <li className='text-primary'>cskh@healthmate.vn</li>
           </ul>
         </div>
 
       </div>
 
+      {/* Disclaimer & Copyright */}
       <div>
         <hr className='dark:border-gray-700' />
-        <p className='py-5 text-sm text-center dark:text-gray-300'>{t('footer.copyright', { year: currentYear })}</p>
+        <div className='py-5 text-xs text-gray-600 dark:text-gray-400 space-y-3'>
+          <p className='text-center'>{t('footer.disclaimer')}</p>
+          <p className='text-center font-medium text-gray-900 dark:text-white'>
+            {t('footer.copyright', { year: currentYear })}
+          </p>
+        </div>
       </div>
 
     </div>

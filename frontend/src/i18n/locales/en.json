@@ -160,13 +160,26 @@
     "exploreJobs": "Explore Jobs"
   },
   "footer": {
-    "company": "COMPANY",
-    "home": "Home",
-    "aboutUs": "About us",
-    "delivery": "Delivery",
-    "privacyPolicy": "Privacy policy",
-    "getInTouch": "GET IN TOUCH",
-    "copyright": "Copyright {{year}} @ HealthMate.com - All Right Reserved."
+    "companyName": "HEALTHMATE VIETNAM CO., LTD",
+    "address": "Representative Office: 3/1 Thanh Thai St., Dien Hong Ward, Ho Chi Minh City",
+    "hotline": "Hotline: 1900-2805 (8:00 - 17:30 Mon - Sat)",
+    "businessLicense": "Business Registration No. 0315268642 issued by Ho Chi Minh City Department of Planning and Investment on 14/09/2018.",
+    "aboutTitle": "About HealthMate",
+    "about": "About HealthMate",
+    "management": "Management Team",
+    "careers": "Careers & Recruitment",
+    "contact": "Contact",
+    "servicesTitle": "Services",
+    "bookDoctor": "Book Doctor Appointment",
+    "bookHospital": "Book Hospital Appointment",
+    "bookClinic": "Book Clinic Appointment",
+    "symptomChecker": "Symptom Checker",
+    "supportTitle": "Support",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "complaint": "Complaint Resolution Policy",
+    "disclaimer": "Information on HealthMate is for reference only and does not replace medical diagnosis or treatment. Please strictly follow the instructions of Doctors and Medical Staff.",
+    "copyright": "Copyright © 2018 - {{year}} HealthMate Vietnam Co., Ltd."
   },
   "common": {
     "save": "Save",

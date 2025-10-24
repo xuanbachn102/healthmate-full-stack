@@ -160,13 +160,26 @@
     "exploreJobs": "Khám Phá Việc Làm"
   },
   "footer": {
-    "company": "CÔNG TY",
-    "home": "Trang chủ",
-    "aboutUs": "Giới thiệu",
-    "delivery": "Giao hàng",
-    "privacyPolicy": "Chính sách bảo mật",
-    "getInTouch": "LIÊN HỆ",
-    "copyright": "Bản quyền {{year}} @ HealthMate.com - Mọi quyền được bảo lưu."
+    "companyName": "CÔNG TY TNHH HEALTHMATE VIỆT NAM",
+    "address": "VPĐD: 3/1 Thành Thái, Phường Diên Hồng, TP. Hồ Chí Minh",
+    "hotline": "Hotline: 1900-2805 (8:00 - 17:30 từ T2 đến T7)",
+    "businessLicense": "Số ĐKKD 0315268642 do Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh cấp lần đầu ngày 14/09/2018.",
+    "aboutTitle": "Về HealthMate",
+    "about": "Giới thiệu về HealthMate",
+    "management": "Ban điều hành",
+    "careers": "Nhân sự & Tuyển dụng",
+    "contact": "Liên hệ",
+    "servicesTitle": "Dịch vụ",
+    "bookDoctor": "Đặt khám Bác sĩ",
+    "bookHospital": "Đặt khám Bệnh viện",
+    "bookClinic": "Đặt khám Phòng Khám",
+    "symptomChecker": "Kiểm tra triệu chứng",
+    "supportTitle": "Hỗ trợ",
+    "terms": "Điều Khoản Sử Dụng",
+    "privacy": "Chính Sách Bảo Mật",
+    "complaint": "Chính sách giải quyết khiếu nại",
+    "disclaimer": "Các thông tin trên HealthMate chỉ dành cho mục đích tham khảo, tra cứu và không thay thế cho việc chẩn đoán hoặc điều trị y khoa. Cần tuyệt đối tuân theo hướng dẫn của Bác sĩ và Nhân viên y tế.",
+    "copyright": "Copyright © 2018 - {{year}} Công ty TNHH HealthMate Việt Nam."
   },
   "common": {
     "save": "Lưu",
