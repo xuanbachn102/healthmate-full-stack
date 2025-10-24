@@ -29,6 +29,8 @@ const MyProfile = () => {
             formData.append('dob', userData.dob)
             formData.append('ethnicity', userData.ethnicity)
             formData.append('occupation', userData.occupation)
+            formData.append('cccdNumber', userData.cccdNumber || '')
+            formData.append('bhytNumber', userData.bhytNumber || '')
 
             // Add health information
             formData.append('bloodType', userData.bloodType || t('myProfile.notSpecified'))
@@ -136,6 +138,20 @@ const MyProfile = () => {
                     {isEdit
                         ? <input className='bg-gray-50 dark:bg-gray-800 dark:text-white' type='text' onChange={(e) => setUserData(prev => ({ ...prev, occupation: e.target.value }))} value={userData.occupation} />
                         : <p className='text-gray-500 dark:text-gray-300'>{userData.occupation}</p>
+                    }
+
+                    <p className='font-medium'>{t('myProfile.cccdNumber')}</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 dark:bg-gray-800 dark:text-white' type='text' placeholder='001234567890' onChange={(e) => setUserData(prev => ({ ...prev, cccdNumber: e.target.value }))} value={userData.cccdNumber || ''} />
+                        : <p className='text-gray-500 dark:text-gray-300'>{userData.cccdNumber || t('myProfile.notProvided')}</p>
+                    }
+
+                    <p className='font-medium'>{t('myProfile.bhytNumber')}</p>
+
+                    {isEdit
+                        ? <input className='bg-gray-50 dark:bg-gray-800 dark:text-white' type='text' placeholder='HN1234567890123' onChange={(e) => setUserData(prev => ({ ...prev, bhytNumber: e.target.value }))} value={userData.bhytNumber || ''} />
+                        : <p className='text-gray-500 dark:text-gray-300'>{userData.bhytNumber || t('myProfile.notProvided')}</p>
                     }
 
                 </div>

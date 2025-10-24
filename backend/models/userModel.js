@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     dob: { type: String, default: 'Not Selected' },
     ethnicity: { type: String, default: 'Not Selected' },
     occupation: { type: String, default: 'Not Selected' },
+    // Identification Documents
+    cccdNumber: { type: String, default: '' },
+    bhytNumber: { type: String, default: '' },
     password: { type: String, required: true },
     // Google OAuth
     googleId: { type: String, unique: true, sparse: true },
