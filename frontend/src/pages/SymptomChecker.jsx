@@ -113,7 +113,7 @@ const SymptomChecker = () => {
                 <strong>Medical Disclaimer:</strong> This tool provides general health information only and is NOT a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for medical concerns.
               </p>
               <p className='text-sm text-yellow-700 dark:text-yellow-300 mt-1'>
-                <strong>Emergency:</strong> If experiencing chest pain, difficulty breathing, severe bleeding, or loss of consciousness, call emergency services immediately (911).
+                <strong>Emergency:</strong> If experiencing chest pain, difficulty breathing, severe bleeding, or loss of consciousness, call emergency services immediately.
               </p>
             </div>
           </div>
@@ -318,7 +318,7 @@ const SymptomChecker = () => {
                       EMERGENCY DETECTED
                     </p>
                     <p className='text-sm text-red-700 dark:text-red-300'>
-                      {result.emergencyWarning || 'Please seek immediate medical attention. Call 911 or your local emergency services.'}
+                      {result.emergencyWarning || 'Please seek immediate medical attention immediately.'}
                     </p>
                   </div>
                 </div>
