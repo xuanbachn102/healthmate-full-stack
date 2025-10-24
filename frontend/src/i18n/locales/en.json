@@ -7,6 +7,7 @@
     "symptomChecker": "SYMPTOM CHECKER",
     "healthNews": "HEALTH NEWS",
     "myProfile": "My Profile",
+    "profiles": "Profiles",
     "myAppointments": "My Appointments",
     "logout": "Logout",
     "createAccount": "Create account"
@@ -179,5 +180,34 @@
   "healthNews": {
     "title": "Health News",
     "subtitle": "Stay updated with the latest health news and medical information from trusted sources"
+  },
+  "profiles": {
+    "title": "Manage Profiles",
+    "subtitle": "Manage health profiles for your family",
+    "addProfile": "Add Profile",
+    "createNew": "Create New Profile",
+    "name": "Name",
+    "relationship": "Relationship",
+    "color": "Color",
+    "self": "Myself",
+    "spouse": "Spouse",
+    "child": "Child",
+    "parent": "Parent",
+    "sibling": "Sibling",
+    "other": "Other",
+    "default": "Default",
+    "viewEdit": "View/Edit",
+    "setAsDefault": "Set as Default",
+    "delete": "Delete",
+    "create": "Create",
+    "nameRequired": "Name is required",
+    "maxProfilesReached": "Maximum 5 profiles reached",
+    "profileCreated": "Profile created successfully",
+    "confirmDelete": "Are you sure you want to delete this profile?",
+    "profileDeleted": "Profile deleted",
+    "defaultUpdated": "Default profile updated",
+    "noProfiles": "No profiles yet",
+    "createFirst": "Create your first profile",
+    "info": "You can create up to 5 profiles for your family. Each profile can have separate health information."
   }
 }

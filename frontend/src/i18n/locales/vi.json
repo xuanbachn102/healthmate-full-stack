@@ -7,6 +7,7 @@
     "symptomChecker": "KIỂM TRA TRIỆU CHỨNG",
     "healthNews": "TIN TỨC SỨC KHỎE",
     "myProfile": "Hồ Sơ Của Tôi",
+    "profiles": "Hồ Sơ Gia Đình",
     "myAppointments": "Lịch Hẹn Của Tôi",
     "logout": "Đăng Xuất",
     "createAccount": "Tạo tài khoản"
@@ -179,5 +180,34 @@
   "healthNews": {
     "title": "Tin tức sức khỏe",
     "subtitle": "Cập nhật tin tức y tế và sức khỏe mới nhất từ các nguồn uy tín"
+  },
+  "profiles": {
+    "title": "Quản lý hồ sơ",
+    "subtitle": "Quản lý hồ sơ sức khỏe cho gia đình",
+    "addProfile": "Thêm hồ sơ",
+    "createNew": "Tạo hồ sơ mới",
+    "name": "Tên",
+    "relationship": "Mối quan hệ",
+    "color": "Màu sắc",
+    "self": "Bản thân",
+    "spouse": "Vợ/Chồng",
+    "child": "Con",
+    "parent": "Cha/Mẹ",
+    "sibling": "Anh/Chị/Em",
+    "other": "Khác",
+    "default": "Mặc định",
+    "viewEdit": "Xem/Sửa",
+    "setAsDefault": "Đặt làm mặc định",
+    "delete": "Xóa",
+    "create": "Tạo",
+    "nameRequired": "Tên là bắt buộc",
+    "maxProfilesReached": "Đã đạt giới hạn 5 hồ sơ",
+    "profileCreated": "Tạo hồ sơ thành công",
+    "confirmDelete": "Bạn có chắc muốn xóa hồ sơ này?",
+    "profileDeleted": "Đã xóa hồ sơ",
+    "defaultUpdated": "Đã cập nhật hồ sơ mặc định",
+    "noProfiles": "Chưa có hồ sơ nào",
+    "createFirst": "Tạo hồ sơ đầu tiên",
+    "info": "Bạn có thể tạo tối đa 5 hồ sơ cho gia đình. Mỗi hồ sơ có thể có thông tin sức khỏe riêng."
   }
 }

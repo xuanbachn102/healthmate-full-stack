@@ -1,420 +1,338 @@
 # HealthMate - Context Documentation
 
-### Git Commit Guidelines
-⚠️ **IMPORTANT**:
-- KHÔNG BAO GIỜ đề cập đến AI, chatbot tools, hoặc code generators trong commit messages
-- Commit messages phải như được viết bởi developer thực
-- Focus vào technical changes và business value
-- Sử dụng conventional commits format
+⚠️ **CRITICAL**:
+- KHÔNG ĐƯỢC COMMIT FILE NÀY - FILE LOCAL CHỈ DÀNH CHO CLAUDE
+- Commit messages KHÔNG được đề cập AI, chatbot, code generators
+- Format: conventional commits (feat/fix/chore/docs)
 
-**Good Examples:**
-```
-feat: Add blood type and health history to user profile
-
-- Added blood type selection with standard types
-- Implemented symptoms and disease tracking
-- Created emergency contact fields
-- Updated backend API to handle health data
-```
-
-```
-fix: Resolve profile image upload issue
-
-- Fixed Cloudinary upload timeout
-- Added proper error handling
-- Improved image compression
-```
-
-**Bad Examples (DON'T DO THIS):**
-```
-❌ AI-generated profile enhancement
-❌ Used Claude to add features
-❌ ChatGPT helped implement this
-```
-
-## Project Overview
-HealthMate là một ứng dụng quản lý sức khỏe full-stack cho phép người dùng đặt lịch hẹn với bác sĩ, quản lý hồ sơ sức khỏe cá nhân và theo dõi các cuộc hẹn y tế.
+---
 
 ## Tech Stack
 
 ### Backend
-- **Framework**: Node.js + Express.js
-- **Database**: MongoDB với Mongoose ODM
-- **Authentication**: JWT (JSON Web Tokens)
-- **Password Security**: bcrypt
-- **Image Storage**: Cloudinary
-- **File Upload**: Multer
-- **Payment Gateways**:
-  - Razorpay
-  - Stripe
-- **Validation**: validator library
+- Node.js + Express.js + MongoDB (Mongoose)
+- JWT authentication + bcrypt
+- Cloudinary (images), Multer (upload)
+- **Payment**: MoMo (Vietnam, test mode)
+- **AI**: Google Gemini 2.5 Flash (API v1beta)
+- **RSS**: rss-parser (health news)
 
 ### Frontend
-- **Framework**: React
-- **State Management**: Context API (AppContext)
-- **HTTP Client**: Axios
-- **Styling**: Tailwind CSS
-- **Notifications**: React Toastify
-- **Routing**: React Router
+- React + Vite + TailwindCSS
+- React Router DOM, Axios
+- i18next (EN/VI multilanguage)
+- react-toastify (notifications)
+- Dark mode support
 
-### Admin Panel
-- Separate admin interface for managing doctors and appointments
+---
+
+## Core Features (Completed ✅)
+
+### 1. Authentication
+- Email/Password + Google OAuth 2.0
+- JWT tokens, protected routes
+- Files: `authContext.js`, `Login.jsx`
+
+### 2. User Profile + Health Records
+- Personal info: name, phone, address, DOB, gender, **ethnicity**, **occupation**
+- Health: blood type, symptoms, diseases, allergies, medications
+- Emergency contact, profile image upload
+- Files: `userModel.js`, `MyProfile.jsx`
+
+### 3. AI Health Assistant (Gemini 2.5 Flash)
+- **Chatbot**: Health Q&A with user profile context, structured responses (YouMed-style)
+- **Symptom Checker**: Analyze symptoms → recommend specialty, emergency detection
+- **Enhanced Prompts**: Detailed responses with causes, treatments, medical info
+- Emergency: 115 (Vietnam), Vietnamese-friendly warnings
+- Files: `aiService.js`, `ChatWidget.jsx`, `SymptomChecker.jsx`
+
+### 4. Doctor Appointment System
+- Browse doctors by specialty
+- Book/view/cancel appointments
+- Files: `doctorModel.js`, `Doctors.jsx`, `MyAppointments.jsx`
+
+### 5. Payment Integration
+- **MoMo**: HMAC-SHA256 signatures, IPN/return URL handling
+- Test mode (requires business account for production)
+- Files: `momoService.js`, `paymentController.js`
+
+### 6. Health News (RSS Feeds - Vietnamese)
+- Sources: VnExpress, SKĐS, Dân trí, Tuổi Trẻ
+- Filter by source, real-time updates
+- Files: `newsService.js`, `HealthNews.jsx`
+
+### 7. Multilanguage (i18next)
+- English + Vietnamese
+- Files: `en.json`, `vi.json`
+
+### 8. Dark Mode
+- Toggle with localStorage persistence
+- Files: `ThemeContext.js`, `ThemeToggle.jsx`
+
+---
 
 ## Project Structure
 
 ```
 healthmate-full-stack/
 ├── backend/
-│   ├── controllers/
-│   │   └── userController.js
-│   ├── models/
-│   │   ├── userModel.js
-│   │   ├── doctorModel.js
-│   │   └── appointmentModel.js
-│   ├── middleware/
-│   │   └── authUser.js
-│   └── routes/
-│       └── userRoute.js
-├── frontend/
-│   └── src/
-│       ├── components/
-│       ├── context/
-│       │   └── AppContext.jsx
-│       └── pages/
-│           ├── Login.jsx
-│           └── MyProfile.jsx
-└── admin/
+│   ├── config/         # mongodb.js, cloudinary.js
+│   ├── controllers/    # userController, doctorController, adminController, newsController
+│   ├── middlewares/    # authUser.js, authAdmin.js, authDoctor.js, multer.js
+│   ├── models/         # userModel, doctorModel, appointmentModel
+│   ├── routes/         # userRoute, doctorRoute, adminRoute, newsRoutes
+│   ├── services/       # aiService.js, momoService.js, newsService.js
+│   ├── server.js       # Main entry
+│   └── .env            # MONGODB_URI, JWT_SECRET, CLOUDINARY_*, GEMINI_API_KEY, MOMO_*
+│
+└── frontend/
+    ├── src/
+    │   ├── assets/
+    │   ├── components/  # Navbar, Footer, ChatWidget, ThemeToggle, LanguageSwitcher
+    │   ├── context/     # AppContext, ThemeContext
+    │   ├── i18n/        # locales/en.json, vi.json
+    │   ├── pages/       # Home, Login, Doctors, MyProfile, SymptomChecker, HealthNews, etc.
+    │   ├── App.jsx
+    │   └── main.jsx
+    └── .env             # VITE_BACKEND_URL, VITE_GOOGLE_CLIENT_ID
 ```
-
-## Current Features
-
-### User Management
-- User registration with email/password
-- Login authentication with JWT
-- Profile management with image upload
-- Personal information (name, email, phone, address, gender, DOB)
-
-### Appointment System
-- Book appointments with doctors
-- View appointment history
-- Cancel appointments
-- Payment integration (Razorpay & Stripe)
-
-### Enhanced User Profile (Latest Addition)
-Người dùng có thể lưu thông tin sức khỏe quan trọng:
-
-**Health Information Fields:**
-- **Blood Type**: A+, A-, B+, B-, AB+, AB-, O+, O-, Not Specified
-- **Symptoms**: Danh sách các triệu chứng hiện tại
-- **Diseases**: Lịch sử bệnh lý
-- **Allergies**: Danh sách dị ứng
-- **Medications**: Thuốc đang sử dụng
-
-**Emergency Contact:**
-- Name: Tên người liên hệ khẩn cấp
-- Phone: Số điện thoại
-- Relationship: Mối quan hệ
-
-## API Endpoints
-
-### Authentication (Public)
-- `POST /api/user/register` - Đăng ký tài khoản mới
-- `POST /api/user/login` - Đăng nhập
-- `POST /api/user/google-login` - Đăng nhập với Google OAuth
-
-### User Profile (Protected - requires JWT token)
-- `GET /api/user/get-profile` - Lấy thông tin profile
-- `POST /api/user/update-profile` - Cập nhật profile + health information
-
-### Appointments (Protected)
-- `POST /api/user/book-appointment` - Đặt lịch hẹn
-- `GET /api/user/appointments` - Xem danh sách lịch hẹn
-- `POST /api/user/cancel-appointment` - Hủy lịch hẹn
-
-### Payments (Protected)
-- `POST /api/user/payment-razorpay` - Thanh toán qua Razorpay
-- `POST /api/user/verifyRazorpay` - Xác nhận thanh toán Razorpay
-- `POST /api/user/payment-stripe` - Thanh toán qua Stripe
-- `POST /api/user/verifyStripe` - Xác nhận thanh toán Stripe
-
-## Database Schema
-
-### User Model
-```javascript
-{
-  name: String (required),
-  email: String (required, unique),
-  password: String (required, hashed with bcrypt),
-  googleId: String (unique, sparse - for Google OAuth users),
-  image: String (default: base64 profile picture),
-  phone: String (default: '000000000'),
-  address: { line1: String, line2: String },
-  gender: String (default: 'Not Selected'),
-  dob: String (default: 'Not Selected'),
-
-  // Health Information
-  bloodType: String (enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Not Specified']),
-  symptoms: [String],
-  diseases: [String],
-  allergies: [String],
-  medications: [String],
-  emergencyContact: {
-    name: String,
-    phone: String,
-    relationship: String
-  }
-}
-```
-
-## Planned Features (Roadmap)
-
-### 1. Enhanced User Profile ✅ COMPLETED
-- Blood type, symptoms, diseases tracking
-- Allergies and medications list
-- Emergency contact information
-
-### 2. Notification System (Pending)
-**Purpose Ideas:**
-- Appointment reminders (before 24h, 1h)
-- Medication reminders
-- Doctor availability alerts
-- Payment confirmations
-- System announcements
-
-### 3. Google Login Integration ✅ COMPLETED & TESTED
-OAuth 2.0 authentication cho đăng nhập nhanh:
-
-**Features:**
-- One-click sign up/login với Google account
-- Auto-create user từ Google profile
-- Link existing accounts by email
-- Profile picture từ Google
-- Không cần password cho Google users
-
-**Implementation:**
-- Frontend: @react-oauth/google package
-- GoogleOAuthProvider wrapper trong main.jsx
-- GoogleLogin button trong Login page với divider "OR"
-- JWT decode để extract user info (email, name, sub, picture)
-- Backend: googleLogin controller trong userController.js
-- User model có googleId field (unique, sparse)
-- Route: POST /api/user/google-login
-
-**Setup Required:**
-- Google Cloud Console project
-- Enable People API (hoặc Google+ API)
-- Create OAuth 2.0 credentials
-- Add authorized origins: http://localhost:5173 (và http://localhost:5174 nếu cần)
-- Set VITE_GOOGLE_CLIENT_ID trong frontend/.env
-
-**Troubleshooting:**
-- Port conflicts: Sử dụng `npm run dev:safe` để tự động kill port 5173
-- Vite strictPort: Config để không auto-switch sang port khác
-- origin_mismatch error: Kiểm tra authorized origins trong Google Console
-- Backend restart: Luôn restart backend sau khi thêm routes mới
-
-**Documentation:**
-- GOOGLE_OAUTH_SETUP.md - Hướng dẫn chi tiết 7 bước
-- GOOGLE_SETUP_SIMPLE.md - Hướng dẫn đơn giản bằng tiếng Việt
-- GOOGLE_QUICK_GUIDE.txt - Quick reference
-- FIX_ORIGIN_MISMATCH.md - Troubleshooting guide
-- PORT_5173_GUIDE.md - Port management guide
-
-**Branch**: feature/google-login
-**Status**: ✅ TESTED & WORKING - Ready to merge
-
-### 4. Multilanguage Support ✅ COMPLETED
-**Features:**
-- English (EN) and Vietnamese (VI) translations
-- i18next implementation with react-i18next
-- Language switcher in navigation bar with flags
-- All pages translated: Home, Doctors, About, Contact, Profile, Appointments
-- Language persistence in localStorage
-- Dynamic content support with interpolation (e.g., copyright year)
-- Localized address for Vietnam office
-
-**Implementation:**
-- Frontend: i18next, react-i18next packages
-- Translation files: frontend/src/i18n/locales/{en,vi}.json
-- i18n config: frontend/src/i18n/i18n.js
-- Language switcher component with EN/VN flags
-- useTranslation hook in all components
-
-**Branch**: feature/multilanguage
-**Status**: ✅ MERGED TO MAIN
-
-### 5. Dark Mode ✅ COMPLETED
-**Features:**
-- Theme toggle button with sun/moon icons in navigation
-- Seamless switching between light and dark themes
-- Theme preference persistence in localStorage (key: healthmate-theme)
-- High contrast text for better readability in dark mode
-- Comprehensive dark mode styling across all pages and components
-
-**Implementation:**
-- Frontend: Tailwind CSS dark mode with class-based strategy
-- ThemeContext for global theme state management
-- ThemeToggle component with icon indicators
-- CSS transitions for smooth theme switching (300ms)
-- Dark mode optimizations:
-  - Headings: dark:text-white
-  - Body text: dark:text-gray-100/gray-200
-  - Cards: dark:bg-gray-800 with dark:border-gray-700
-  - Logo: Inverted colors for visibility
-  - All input fields, textareas, selects optimized for dark theme
-
-**Technical Details:**
-- tailwind.config.js: darkMode: 'class'
-- index.css: Global dark mode background transitions
-- ThemeProvider wraps entire App for theme state
-- useTheme hook for accessing theme across components
-- Compatible with multilanguage feature
-
-**Branch**: feature/dark-mode
-**Status**: ✅ MERGED TO MAIN
-
-### 6. AI Chatbot Integration (Pending)
-**Potential Use Cases:**
-- Health consultation assistant
-- Symptom checker
-- Medication information
-- Appointment booking assistance
-- FAQs about common health issues
-- Doctor recommendation based on symptoms
-
-## Development Workflow
-
-### Branch Strategy
-Mỗi feature được phát triển trên branch riêng:
-- `feature/enhanced-user-profile` - User profile với health info
-- `feature/notification-system` - Hệ thống thông báo
-- `feature/google-login` - Đăng nhập Google
-- `feature/multilanguage` - Hỗ trợ đa ngôn ngữ
-- `feature/dark-mode` - Chế độ tối
-- `feature/ai-chatbot` - Tích hợp chatbot AI
-
-## Environment Variables
-
-### Backend (.env)
-```
-MONGODB_URI=<your_mongodb_connection_string>
-JWT_SECRET=<your_jwt_secret>
-CLOUDINARY_NAME=<cloudinary_cloud_name>
-CLOUDINARY_API_KEY=<cloudinary_api_key>
-CLOUDINARY_SECRET_KEY=<cloudinary_secret_key>
-RAZORPAY_KEY_ID=<razorpay_key_id>
-RAZORPAY_KEY_SECRET=<razorpay_key_secret>
-STRIPE_SECRET_KEY=<stripe_secret_key>
-CURRENCY=USD
-```
-
-### Frontend (.env)
-```
-VITE_BACKEND_URL=http://localhost:4000
-VITE_GOOGLE_CLIENT_ID=<your_google_oauth_client_id>
-VITE_RAZORPAY_KEY_ID=<razorpay_key_id>
-```
-
-## Running the Application
-
-### Backend
-```bash
-cd backend
-npm install
-npm start
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev        # Chạy bình thường
-npm run dev:safe   # Tự động kill port 5173 trước khi chạy
-npm run kill-port  # Chỉ kill port 5173
-```
-
-### Admin Panel
-```bash
-cd admin
-npm install
-npm run dev
-```
-
-## Testing Checklist
-
-### User Profile Feature ✅
-
-- [x] Register new user
-- [x] Login successfully
-- [x] View profile page
-- [x] Edit basic information (name, phone, address, gender, DOB)
-- [x] Upload profile image
-- [x] Select blood type
-- [x] Add symptoms (comma-separated)
-- [x] Add diseases (comma-separated)
-- [x] Add allergies (comma-separated)
-- [x] Add medications (comma-separated)
-- [x] Set emergency contact information
-- [x] Save all changes
-- [x] Verify data persists after reload
-
-### Google Login Feature ✅
-
-- [x] Setup Google Cloud Console project
-- [x] Enable People API
-- [x] Create OAuth 2.0 credentials
-- [x] Configure authorized JavaScript origins
-- [x] Add VITE_GOOGLE_CLIENT_ID to .env
-- [x] Click "Sign in with Google" button
-- [x] Select Google account
-- [x] Successfully login with new Google user (auto-create account)
-- [x] Successfully login with existing user
-- [x] Profile picture synced from Google
-- [x] JWT token stored and user redirected
-- [x] Backend endpoint working correctly
-
-## Known Issues & Technical Debt
-- None currently
-
-## Notes for Future Development
-
-### Notification System Considerations
-- Use Socket.io for real-time notifications
-- Store notifications in database
-- Implement notification preferences
-- Add email/SMS integration options
-
-### Google Login Integration
-- Need to register OAuth app with Google
-- Implement passport.js or next-auth
-- Handle profile merging for existing users
-
-### Multilanguage Implementation
-- Use i18next library
-- Create translation files for EN and VI
-- Implement language detection
-- Store user language preference
-
-### Dark Mode
-- Use Tailwind's dark mode feature
-- Store preference in localStorage
-- Add smooth theme transition
-- Test color contrast for accessibility
-
-### AI Chatbot
-- Consider OpenAI API, Google Dialogflow, or local models
-- Implement rate limiting
-- Add disclaimer for medical advice
-- Store chat history for context
-- HIPAA/privacy considerations for health data
-
-## Contact & Support
-- Developer: [Your contact info]
-- Repository: [Git repository URL]
-- Documentation: This file (context_00.md)
 
 ---
 
-**Last Updated**: 2025-10-22
-**Current Version**: v4.0 - Enhanced User Profile + Google Login + Multilanguage + Dark Mode
-**Next Feature**: Notification System or AI Chatbot
+## Environment Variables
+
+### Backend `.env`
+```bash
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=...
+CLOUDINARY_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_SECRET_KEY=...
+GEMINI_API_KEY=...          # Google AI Studio
+MOMO_PARTNER_CODE=...       # MoMo business.momo.vn
+MOMO_ACCESS_KEY=...
+MOMO_SECRET_KEY=...
+ADMIN_EMAIL=...
+ADMIN_PASSWORD=...
+```
+
+### Frontend `.env`
+```bash
+VITE_BACKEND_URL=http://localhost:4000
+VITE_GOOGLE_CLIENT_ID=...   # Google Cloud Console
+```
+
+---
+
+## API Endpoints
+
+### User
+- `POST /api/user/register` - Register new user
+- `POST /api/user/login` - Email/password login
+- `POST /api/user/google-login` - Google OAuth login
+- `GET /api/user/profile` - Get user profile (auth required)
+- `POST /api/user/update-profile` - Update profile + health info (auth required)
+
+### Doctor
+- `GET /api/doctor/list` - List all doctors
+- `POST /api/user/book-appointment` - Book appointment (auth required)
+- `GET /api/user/appointments` - User's appointments (auth required)
+- `POST /api/user/cancel-appointment` - Cancel appointment (auth required)
+
+### AI Services
+- `POST /api/user/chat` - Chatbot conversation (auth optional)
+- `POST /api/user/analyze-symptoms` - Symptom checker (auth optional)
+
+### Payment
+- `POST /api/user/payment-momo` - Create MoMo payment request
+- `POST /api/user/momo-ipn` - MoMo IPN callback
+- `POST /api/user/momo-return` - MoMo return URL handler
+
+### Health News
+- `GET /api/news` - Get all news (query: `?limit=20`)
+- `GET /api/news/sources` - List available sources
+- `GET /api/news/source/:sourceName` - Filter by source
+
+---
+
+## Important Implementation Details
+
+### 1. Google OAuth Flow
+```javascript
+// Frontend: Login.jsx
+<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+  <GoogleLogin onSuccess={handleGoogleLoginSuccess} />
+</GoogleOAuthProvider>
+
+// Backend: authUser.js middleware
+// Verifies JWT token from headers: { token: "Bearer <jwt>" }
+```
+
+### 2. Gemini AI Integration
+```javascript
+// backend/services/aiService.js
+const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+// Chatbot: Structured responses with medical context
+// Symptom Checker: JSON response with specialty, causes, treatments
+```
+
+### 3. MoMo Payment
+```javascript
+// HMAC-SHA256 signature
+var signature = crypto
+  .createHmac('sha256', secretKey)
+  .update(rawSignature)
+  .digest('hex');
+
+// IPN handling for payment confirmation
+// Return URL for redirecting user after payment
+```
+
+### 4. RSS News Parsing
+```javascript
+// backend/services/newsService.js
+const parser = new Parser({ customFields: { item: ['media:content', 'description'] }});
+const feed = await parser.parseURL(rssUrl);
+// Extract images, clean HTML, sort by date
+```
+
+### 5. Dark Mode Implementation
+```javascript
+// frontend/src/context/ThemeContext.js
+const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+// Tailwind: dark:bg-gray-900, dark:text-white
+```
+
+---
+
+## Recent Updates
+
+### v2.5.0 (Latest - Oct 24, 2025)
+- ✅ **Health News**: RSS feeds from 4 Vietnamese sources (VnExpress, SKĐS, Dân trí, Tuổi Trẻ)
+- ✅ **AI Enhancement**: YouMed-style responses with structured format
+  - Chatbot: Greeting with user name, detailed sections
+  - Symptom Checker: Causes, related conditions, medical info, immediate actions
+- ✅ **Profile Enhancement**: Added ethnicity and occupation fields
+- ✅ **Emergency Localization**: Changed 911 → 115 (Vietnam)
+- ✅ **Dark Mode Fixes**: Edit button visibility in MyProfile
+
+### v2.0.0 (Oct 23, 2025)
+- ✅ Google OAuth Login
+- ✅ MoMo Payment Integration (replaced Stripe/Razorpay)
+- ✅ Multilanguage support (EN/VI)
+- ✅ Dark mode
+
+### v1.0.0 (Initial)
+- Basic appointment booking system
+- User authentication (email/password)
+- Profile management
+
+---
+
+## Development Commands
+
+```bash
+# Backend
+cd backend
+npm install
+npm start          # Port 4000
+
+# Frontend
+cd frontend
+npm install
+npm run dev        # Port 5173
+```
+
+---
+
+## Git Workflow
+
+```bash
+# Feature development
+git checkout -b feature/feature-name
+# Make changes, commit frequently
+git add .
+git commit -m "feat: Add feature description"
+
+# When done
+git checkout main
+git merge feature/feature-name
+git branch -d feature/feature-name
+```
+
+---
+
+## Known Issues & Limitations
+
+1. **MoMo Payment**: Requires business account for production, currently test mode
+2. **Google OAuth**: Redirect URI must match exactly (http://localhost:5173)
+3. **Gemini API**: Free tier limits (60 req/min, 1500 req/day)
+4. **RSS Feeds**: No control over source uptime, fallback to cached data recommended
+5. **Image Upload**: 10MB limit on Cloudinary free tier
+
+---
+
+## Future Enhancements (Thesis Scope)
+
+### Phase 1: Core Features (Should implement)
+1. **Multiple Profiles (Family Accounts)**
+   - One account manages multiple health profiles
+   - Add CCCD/BHYT fields (text input only)
+
+2. **Hospital/Doctor Directory**
+   - Static database of 50-100 Vietnamese hospitals
+   - Doctor profiles with specialties
+   - Maps integration (Google Maps API)
+   - Favorite doctors
+
+3. **Mock Appointment System**
+   - Book appointments (mock, not real hospital integration)
+   - Appointment history and reminders
+   - Cancellation with confirmation dialog
+
+4. **Medical Records Upload**
+   - Upload prescriptions, test results
+   - Gallery view by profile
+
+### Phase 2: Nice to Have (Optional)
+5. **Online Pharmacy Catalog** (UI only, no checkout)
+6. **Telemedicine** (requires partnerships)
+
+### NOT for Thesis (Too complex)
+- ❌ Real hospital API integration
+- ❌ eKYC CCCD scanning
+- ❌ NFC chip reading
+- ❌ Payment gateway production
+
+---
+
+## Security Notes
+
+- JWT tokens stored in localStorage
+- Passwords hashed with bcrypt (10 rounds)
+- Protected routes require authentication middleware
+- CORS enabled for frontend-backend communication
+- Environment variables for sensitive data
+- HTTPS recommended for production
+
+---
+
+## Deployment Checklist (When ready)
+
+- [ ] Set `NODE_ENV=production`
+- [ ] Update CORS origins to production domain
+- [ ] Configure production MongoDB cluster
+- [ ] Update Google OAuth redirect URIs
+- [ ] Configure MoMo business account
+- [ ] Enable Cloudinary signed uploads
+- [ ] Add rate limiting middleware
+- [ ] Set up monitoring (errors, API usage)
+- [ ] Configure CDN for static assets
+
+---
+
+**Last Updated**: October 24, 2025
+**Current Branch**: feature/health-news
+**Status**: Ready for merge
