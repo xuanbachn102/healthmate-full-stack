@@ -5,6 +5,7 @@ import { AppContext } from '../context/AppContext'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 import ThemeToggle from './ThemeToggle'
+import ProfileSwitcher from './ProfileSwitcher'
 
 const Navbar = () => {
 
@@ -53,6 +54,7 @@ const Navbar = () => {
       <div className='flex items-center gap-4 '>
         <ThemeToggle />
         <LanguageSwitcher />
+        {token && <ProfileSwitcher />}
         {
           token && userData
             ? <div className='flex items-center gap-2 cursor-pointer group relative'>

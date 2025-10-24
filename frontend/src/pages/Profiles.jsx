@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const Profiles = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { token, backendUrl } = useContext(AppContext);
+  const { token, backendUrl, profiles: contextProfiles, loadProfiles } = useContext(AppContext);
 
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,28 +34,11 @@ const Profiles = () => {
   ];
 
   useEffect(() => {
-    if (token) {
-      loadProfiles();
-    }
-  }, [token]);
-
-  const loadProfiles = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(`${backendUrl}/api/profile/list`, {
-        headers: { token }
-      });
-
-      if (data.success) {
-        setProfiles(data.profiles);
-      }
-    } catch (error) {
-      console.error('Error loading profiles:', error);
-      toast.error('Failed to load profiles');
-    } finally {
+    if (contextProfiles) {
+      setProfiles(contextProfiles);
       setLoading(false);
     }
-  };
+  }, [contextProfiles]);
 
   const handleCreateProfile = async () => {
     if (!newProfile.name.trim()) {
@@ -82,7 +65,7 @@ const Profiles = () => {
         toast.success(t('profiles.profileCreated') || 'Tạo hồ sơ thành công');
         setShowCreateModal(false);
         setNewProfile({ name: '', relationship: 'other', color: '#3B82F6' });
-        loadProfiles();
+        loadProfiles(); // Reload from context
       } else {
         toast.error(data.message);
       }
@@ -105,7 +88,7 @@ const Profiles = () => {
 
       if (data.success) {
         toast.success(t('profiles.profileDeleted') || 'Đã xóa hồ sơ');
-        loadProfiles();
+        loadProfiles(); // Reload from context
       } else {
         toast.error(data.message);
       }
@@ -124,7 +107,7 @@ const Profiles = () => {
 
       if (data.success) {
         toast.success(t('profiles.defaultUpdated') || 'Đã cập nhật hồ sơ mặc định');
-        loadProfiles();
+        loadProfiles(); // Reload from context
       }
     } catch (error) {
       console.error('Error setting default:', error);
