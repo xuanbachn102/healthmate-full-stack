@@ -7,8 +7,8 @@ import {
     deleteProfile,
     setDefaultProfile
 } from '../controllers/profileController.js';
-import authUser from '../middlewares/authUser.js';
-import upload from '../middlewares/multer.js';
+import authUser from '../middleware/authUser.js';
+import upload from '../middleware/multer.js';
 
 const profileRouter = express.Router();
 
