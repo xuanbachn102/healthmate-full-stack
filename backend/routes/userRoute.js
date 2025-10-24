@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginUser, registerUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, paymentMoMo, verifyMoMo, checkMoMoPayment, analyzeSymptoms, chatWithBot } from '../controllers/userController.js';
+import { loginUser, registerUser, googleLogin, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, paymentMoMo, verifyMoMo, checkMoMoPayment, analyzeSymptoms, chatWithBot, changePassword } from '../controllers/userController.js';
 import upload from '../middleware/multer.js';
 import authUser from '../middleware/authUser.js';
 const userRouter = express.Router();
@@ -22,5 +22,8 @@ userRouter.post("/check-momo-payment", authUser, checkMoMoPayment)
 // AI Features
 userRouter.post("/analyze-symptoms", authUser, analyzeSymptoms)
 userRouter.post("/chat", authUser, chatWithBot)
+
+// Password Management
+userRouter.post("/change-password", authUser, changePassword)
 
 export default userRouter;

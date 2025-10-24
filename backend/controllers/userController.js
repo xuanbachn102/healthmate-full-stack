@@ -542,6 +542,48 @@ const checkMoMoPayment = async (req, res) => {
     }
 };
 
+// API to change user password
+const changePassword = async (req, res) => {
+    try {
+        const { userId, currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.json({ success: false, message: 'All fields are required' });
+        }
+
+        if (newPassword.length < 8) {
+            return res.json({ success: false, message: 'New password must be at least 8 characters' });
+        }
+
+        // Get user with password
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            return res.json({ success: false, message: 'User not found' });
+        }
+
+        // Verify current password
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+        if (!isMatch) {
+            return res.json({ success: false, message: 'Current password is incorrect' });
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // Update password
+        await userModel.findByIdAndUpdate(userId, { password: hashedPassword });
+
+        res.json({ success: true, message: 'Password changed successfully' });
+
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
 export {
     loginUser,
     registerUser,
@@ -555,5 +597,6 @@ export {
     verifyMoMo,
     checkMoMoPayment,
     analyzeSymptoms,
-    chatWithBot
+    chatWithBot,
+    changePassword
 }

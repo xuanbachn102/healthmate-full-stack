@@ -14,6 +14,7 @@ import HealthNews from './pages/HealthNews'
 import Profiles from './pages/Profiles'
 import ProfileEdit from './pages/ProfileEdit'
 import Notifications from './pages/Notifications'
+import Settings from './pages/Settings'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
 import { ToastContainer } from 'react-toastify';
@@ -39,6 +40,7 @@ const App = () => {
           <Route path='/profiles' element={<Profiles />} />
           <Route path='/profile/:profileId' element={<ProfileEdit />} />
           <Route path='/notifications' element={<Notifications />} />
+          <Route path='/settings' element={<Settings />} />
           <Route path='/symptom-checker' element={<SymptomChecker />} />
           <Route path='/health-news' element={<HealthNews />} />
           <Route path='/appointment/:docId' element={<Appointment />} />

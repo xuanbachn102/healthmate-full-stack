@@ -53,8 +53,6 @@ const Navbar = () => {
       </ul>
 
       <div className='flex items-center gap-4 '>
-        <ThemeToggle />
-        <LanguageSwitcher />
         {token && <NotificationBell />}
         {token && <ProfileSwitcher />}
         {
@@ -67,6 +65,7 @@ const Navbar = () => {
                   <p onClick={() => navigate('/my-profile')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.myProfile')}</p>
                   <p onClick={() => navigate('/profiles')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.profiles') || 'Hồ sơ'}</p>
                   <p onClick={() => navigate('/my-appointments')} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.myAppointments')}</p>
+                  <p onClick={() => navigate('/settings')} className='hover:text-black dark:hover:text-white cursor-pointer'>Settings</p>
                   <p onClick={logout} className='hover:text-black dark:hover:text-white cursor-pointer'>{t('nav.logout')}</p>
                 </div>
               </div>
