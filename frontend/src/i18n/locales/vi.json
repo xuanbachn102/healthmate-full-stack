@@ -5,6 +5,7 @@
     "about": "GIỚI THIỆU",
     "contact": "LIÊN HỆ",
     "symptomChecker": "KIỂM TRA TRIỆU CHỨNG",
+    "healthNews": "TIN TỨC SỨC KHỎE",
     "myProfile": "Hồ Sơ Của Tôi",
     "myAppointments": "Lịch Hẹn Của Tôi",
     "logout": "Đăng Xuất",
@@ -171,5 +172,9 @@
     "loading": "Đang tải...",
     "error": "Lỗi",
     "success": "Thành công"
+  },
+  "healthNews": {
+    "title": "Tin tức sức khỏe",
+    "subtitle": "Cập nhật tin tức y tế và sức khỏe mới nhất từ các nguồn uy tín"
   }
 }

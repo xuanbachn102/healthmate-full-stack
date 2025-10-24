@@ -5,6 +5,7 @@
     "about": "ABOUT",
     "contact": "CONTACT",
     "symptomChecker": "SYMPTOM CHECKER",
+    "healthNews": "HEALTH NEWS",
     "myProfile": "My Profile",
     "myAppointments": "My Appointments",
     "logout": "Logout",
@@ -171,5 +172,9 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success"
+  },
+  "healthNews": {
+    "title": "Health News",
+    "subtitle": "Stay updated with the latest health news and medical information from trusted sources"
   }
 }
