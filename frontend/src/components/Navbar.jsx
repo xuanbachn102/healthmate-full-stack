@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 import ThemeToggle from './ThemeToggle'
 import ProfileSwitcher from './ProfileSwitcher'
+import NotificationBell from './NotificationBell'
 
 const Navbar = () => {
 
@@ -54,6 +55,7 @@ const Navbar = () => {
       <div className='flex items-center gap-4 '>
         <ThemeToggle />
         <LanguageSwitcher />
+        {token && <NotificationBell />}
         {token && <ProfileSwitcher />}
         {
           token && userData
