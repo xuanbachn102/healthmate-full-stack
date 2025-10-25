@@ -221,6 +221,23 @@
     "defaultUpdated": "Đã cập nhật hồ sơ mặc định",
     "noProfiles": "Chưa có hồ sơ nào",
     "createFirst": "Tạo hồ sơ đầu tiên",
-    "info": "Bạn có thể tạo tối đa 5 hồ sơ cho gia đình. Mỗi hồ sơ có thể có thông tin sức khỏe riêng."
+    "info": "Bạn có thể tạo tối đa 5 hồ sơ cho gia đình. Mỗi hồ sơ có thể có thông tin sức khỏe riêng.",
+    "settings": {
+      "title": "Cài đặt",
+      "appearance": "Giao diện",
+      "theme": "Chủ đề",
+      "themeDesc": "Chọn chủ đề hiển thị",
+      "language": "Ngôn ngữ",
+      "languageDesc": "Chọn ngôn ngữ hiển thị",
+      "security": "Bảo mật",
+      "currentPassword": "Mật khẩu hiện tại",
+      "enterCurrentPassword": "Nhập mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "enterNewPassword": "Nhập mật khẩu mới (tối thiểu 8 ký tự)",
+      "confirmPassword": "Xác nhận mật khẩu mới",
+      "confirmNewPassword": "Nhập lại mật khẩu mới",
+      "changePasswordButton": "Đổi mật khẩu",
+      "changingPassword": "Đang đổi mật khẩu..."
+    }
   }
 }

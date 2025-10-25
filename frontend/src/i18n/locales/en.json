@@ -222,5 +222,22 @@
     "noProfiles": "No profiles yet",
     "createFirst": "Create your first profile",
     "info": "You can create up to 5 profiles for your family. Each profile can have separate health information."
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeDesc": "Choose your preferred theme",
+    "language": "Language",
+    "languageDesc": "Select your language",
+    "security": "Security",
+    "currentPassword": "Current Password",
+    "enterCurrentPassword": "Enter current password",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter new password (min. 8 characters)",
+    "confirmPassword": "Confirm New Password",
+    "confirmNewPassword": "Confirm new password",
+    "changePasswordButton": "Change Password",
+    "changingPassword": "Changing Password..."
   }
 }
